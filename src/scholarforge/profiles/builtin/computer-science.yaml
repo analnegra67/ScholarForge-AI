@@ -1,0 +1,20 @@
+id: computer-science
+name: Computer science
+extends: generic-science
+description: Algorithms, complexity, systems and theory of computation.
+keywords: [computer science, algorithms, data structures, complexity theory, computability, programming languages,
+  distributed systems, databases, cryptography, compilers, информатика, інформатика, алгоритм,
+  теория вычислимости]
+evidence_types: [proof, complexity-analysis, benchmark, citation]
+verification:
+  math_symbolic: optional
+  numeric_checks: recommended
+claims:
+  require_citation_kinds: [empirical, historical, statistical]
+presentation:
+  environments: [definition, theorem, lemma, proof, example, exercise, algorithm, remark]
+  conventions:
+    - State the model of computation and the cost model for every complexity claim.
+writing_guidance: |
+  Give algorithms in clear pseudocode, state correctness invariants and complexity with proofs or references.
+  Empirical performance claims need a cited benchmark with its setup.

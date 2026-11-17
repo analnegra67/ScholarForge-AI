@@ -1,0 +1,43 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.12", "3.13", "3.14"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -c constraints.txt -e . pytest
+          python -m pip install --no-deps -e license_server
+      - name: Unit and integration tests (recorded API responses, no rendering)
+        run: python -m pytest tests/unit tests/integration -q -p no:cacheprovider
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ScholarForge and publishing tools
+        run: |
+          python -m pip install -c constraints.txt -e . pytest
+          python -m pip install --no-deps -e license_server
+          scholarforge tools install quarto,tinytex,epubcheck --yes
+      - name: End-to-end scenario (requirement 14)
+        run: python -m pytest tests/e2e -q -p no:cacheprovider -rA
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-outputs
+          path: /tmp/pytest-of-*/pytest-*/test_deep_learning_textbook_e0/e2e/projects/*/exports

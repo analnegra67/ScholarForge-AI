@@ -1,0 +1,60 @@
+# Neural Networks {#sec-neural-networks}
+
+## Feedforward networks and backpropagation {#sec-neural-networks-feedforward-networks-and-backpropagation}
+
+::: {#def-mlp name="Feedforward network"}
+A feedforward network`\index{feedforward network}`{=latex} with $L$ layers maps an input $\mathbf{a}^{(0)} = \mathbf{x}\in\mathbb{R}^{n_0}$ to an output $\mathbf{a}^{(L)}$ through
+$$
+\mathbf{z}^{(\ell)} = \mathbf{W}^{(\ell)}\mathbf{a}^{(\ell-1)} + \mathbf{b}^{(\ell)},\qquad \mathbf{a}^{(\ell)} = \phi\big(\mathbf{z}^{(\ell)}\big),\qquad \ell = 1,\dots,L,
+$$ {#eq-mlp}
+with weight matrices $\mathbf{W}^{(\ell)}\in\mathbb{R}^{n_\ell\times n_{\ell-1}}$, bias vectors $\mathbf{b}^{(\ell)}\in\mathbb{R}^{n_\ell}$ and an activation function $\phi$ applied entrywise; in the output layer $\phi$ is often replaced by the identity or by softmax`\index{softmax}`{=latex}.
+:::
+
+In this chapter $L$ counts layers; it is unrelated to the smoothness constant of @sec-optimization-gradient-descent-and-convexity. For classification into $K$ classes the last layer produces scores $\mathbf{z}\in\mathbb{R}^K$, which are turned into probabilities by $\operatorname{softmax}(\mathbf{z})_k = e^{z_k}/\sum_{j} e^{z_j}$ and scored with the cross-entropy`\index{cross-entropy}`{=latex} $\ell(\mathbf{z}, y) = -\log\operatorname{softmax}(\mathbf{z})_y$ of the true class $y$.
+
+::: {#prp-softmax-gradient name="Gradient of the softmax cross-entropy"}
+With $\mathbf{p} = \operatorname{softmax}(\mathbf{z})$ and $\mathbf{e}_y$ the $y$-th standard basis vector, $\nabla_{\mathbf{z}}\,\ell = \mathbf{p} - \mathbf{e}_y$.
+:::
+
+::: {.proof}
+We have $\ell = -z_y + \log\sum_j e^{z_j}$. The derivative of the second term with respect to $z_k$ is $e^{z_k}/\sum_j e^{z_j} = p_k$, and the derivative of $-z_y$ is $-1$ if $k = y$ and $0$ otherwise.
+:::
+
+Backpropagation`\index{backpropagation}`{=latex} computes all parameter gradients with one reverse sweep, as guaranteed by @prp-reverse-cost. Writing $\boldsymbol{\delta}^{(\ell)} = \partial\ell/\partial\mathbf{z}^{(\ell)}$, the chain rule applied to @eq-mlp gives
+$$
+\boldsymbol{\delta}^{(\ell)} = \Big(\mathbf{W}^{(\ell+1)\top}\boldsymbol{\delta}^{(\ell+1)}\Big)\odot\phi'\big(\mathbf{z}^{(\ell)}\big),\qquad
+\frac{\partial\ell}{\partial\mathbf{W}^{(\ell)}} = \boldsymbol{\delta}^{(\ell)}\,\mathbf{a}^{(\ell-1)\top},\qquad
+\frac{\partial\ell}{\partial\mathbf{b}^{(\ell)}} = \boldsymbol{\delta}^{(\ell)},
+$$ {#eq-backprop}
+where $\odot$ denotes the entrywise product and the recursion starts from $\boldsymbol{\delta}^{(L)} = \mathbf{p} - \mathbf{e}_y$ by @prp-softmax-gradient. The procedure was popularised for training multilayer networks by @rumelhart1986, whose experiments showed that hidden units come to represent important features of the task.
+
+::: {#exm-two-layer name="A two-layer network by hand"}
+Take one input $x$, one hidden unit with weight $w_1$ and sigmoid activation, one linear output with weight $w_2$, and the squared loss $\ell = \tfrac12\big(w_2\,\sigma(w_1 x) - t\big)^2$ for a target $t$. Then $\partial\ell/\partial w_2 = \big(w_2\sigma(w_1 x) - t\big)\,\sigma(w_1 x)$ and, using @eq-sigmoid-derivative, $\partial\ell/\partial w_1 = \big(w_2\sigma(w_1x) - t\big)\,w_2\,\sigma(w_1x)\big(1-\sigma(w_1x)\big)\,x$. These are exactly the two steps of @eq-backprop for this tiny network.
+:::
+
+::: {#exr-backprop-shapes}
+Check that every product in @eq-backprop has compatible dimensions, and rewrite the recursion for the activation $\phi = \tanh$.
+:::
+
+## Universal approximation {#sec-neural-networks-universal-approximation}
+
+How expressive are the networks of @def-mlp? A classical answer concerns networks with a single hidden layer.
+
+::: {#thm-universal-approximation name="Universal approximation"}
+Let $\phi\colon\mathbb{R}\to\mathbb{R}$ be continuous and sigmoidal, that is, $\phi(t)\to 1$ as $t\to\infty$ and $\phi(t)\to 0$ as $t\to-\infty$. For every continuous $f\colon[0,1]^n\to\mathbb{R}$ and every $\varepsilon>0$ there exist $N\in\mathbb{N}$, coefficients $\alpha_j, b_j\in\mathbb{R}$ and vectors $\mathbf{w}_j\in\mathbb{R}^n$ such that
+$$
+\sup_{\mathbf{x}\in[0,1]^n}\Big|\,f(\mathbf{x}) - \sum_{j=1}^{N}\alpha_j\,\phi\big(\mathbf{w}_j^\top\mathbf{x} + b_j\big)\Big| < \varepsilon .
+$$ {#eq-universal}
+:::
+
+This is Cybenko's theorem [@cybenko1989]. @hornik1991 showed that density also holds for every bounded and nonconstant activation, with respect to $L^p(\mu)$ criteria for finite input measures $\mu$, so the essential ingredient is the multilayer architecture rather than the particular activation. The logistic sigmoid of @exm-sigmoid-derivative is sigmoidal in the above sense.
+
+The theorem is an existence statement. It gives no bound on the width $N$ needed for a prescribed $\varepsilon$, it does not say whether gradient-based training as in @thm-gd-convex finds suitable weights, and it says nothing about generalisation from finite data. Quantitative versions require smoothness assumptions on $f$, and a satisfactory explanation of why heavily overparameterised networks trained by stochastic gradient descent generalise well is still an open research question [@lecun2015].
+
+::: {#exm-relu-hat name="Piecewise-linear bumps"}
+With the rectified linear unit $\operatorname{ReLU}(t) = \max(0,t)$, the combination $h(t) = \operatorname{ReLU}(t) - 2\operatorname{ReLU}(t - \tfrac12) + \operatorname{ReLU}(t-1)$ is a hat function that vanishes outside $[0,1]$ and peaks at $h(\tfrac12) = \tfrac12$. Sums of shifted and scaled hats reproduce piecewise-linear interpolation, which converges uniformly to any continuous function on an interval as the mesh is refined: a constructive glimpse of @thm-universal-approximation in one dimension, with ReLU`\index{ReLU}`{=latex} in place of a sigmoidal function`\index{sigmoidal function}`{=latex}.
+:::
+
+::: {#exr-hat}
+Show that a suitable sum of $m+1$ hats with nodes $0, 1/m, \dots, 1$ interpolates $f$ at the nodes, and bound the uniform error when $f$ is Lipschitz with constant $K$.
+:::

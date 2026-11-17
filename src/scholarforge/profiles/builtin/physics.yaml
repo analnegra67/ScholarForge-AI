@@ -1,0 +1,22 @@
+id: physics
+name: Physics
+extends: generic-science
+description: Physics with dimensional analysis and explicit conventions.
+keywords: [physics, classical mechanics, electrodynamics, thermodynamics, statistical mechanics, optics,
+  condensed matter, quantum mechanics, nuclear physics, particle physics, astrophysics, cosmology, физика, фізика,
+  механика, механіка, термодинамик, квантовая механика, квантова механіка, космолог]
+evidence_types: [experiment, observation, derivation, proof, simulation, citation]
+verification:
+  math_symbolic: recommended
+  numeric_checks: recommended
+  dimensional_analysis: recommended
+claims:
+  require_citation_kinds: [empirical, historical, statistical]
+presentation:
+  environments: [definition, theorem, proposition, proof, example, exercise, remark]
+  conventions:
+    - Declare the unit system (SI, Gaussian, natural units) and keep it consistent.
+    - Attach dimension checks to physical formulas (kind 'dimension').
+writing_guidance: |
+  Give derivations with explicit assumptions and approximations. Quote experimental values with uncertainties
+  and a source. Check formulas for dimensional consistency.

@@ -1,0 +1,33 @@
+# Automatic Differentiation {#sec-automatic-differentiation}
+
+## Forward and reverse mode {#sec-automatic-differentiation-forward-and-reverse-mode}
+
+A program that computes $f\colon\mathbb{R}^n\to\mathbb{R}$ from elementary operations defines a *computational graph`\index{computational graph}`{=latex}*: its nodes are intermediate values $v_i$, and its edges record which values each operation reads. Automatic differentiation`\index{automatic differentiation}`{=latex} (AD) applies @thm-chain-rule to this graph and produces derivatives that are exact up to floating-point rounding. It differs from finite differences, which suffer from truncation and cancellation errors, and from symbolic differentiation, which can produce very large expressions [@baydin2018].
+
+::: {#exm-ad-trace name="Forward and reverse sweeps by hand"}
+Consider $f(x_1, x_2) = x_1 x_2 + \sin x_1$, evaluated by the trace
+$$
+v_1 = x_1,\quad v_2 = x_2,\quad v_3 = v_1 v_2,\quad v_4 = \sin v_1,\quad v_5 = v_3 + v_4 = f ,
+$$ {#eq-ad-trace}
+whose graph is drawn in @fig-comp-graph.
+
+*Forward mode`\index{forward mode}`{=latex}* propagates tangents $\dot v_i = \partial v_i/\partial x_1$ together with the values: $\dot v_1 = 1$, $\dot v_2 = 0$, $\dot v_3 = \dot v_1 v_2 + v_1\dot v_2$, $\dot v_4 = \cos(v_1)\,\dot v_1$ and $\dot v_5 = \dot v_3 + \dot v_4$, so that $\dot v_5 = x_2 + \cos x_1 = \partial f/\partial x_1$. One forward sweep yields one directional derivative, hence the full gradient of a function of $n$ inputs needs $n$ sweeps.
+
+*Reverse mode`\index{reverse mode}`{=latex}* first evaluates @eq-ad-trace and stores the values, then propagates adjoints $\bar v_i = \partial f/\partial v_i$ backwards from $\bar v_5 = 1$:
+$$
+\bar v_3 = \bar v_5,\quad \bar v_4 = \bar v_5,\quad \bar v_1 = \bar v_3\, v_2 + \bar v_4\cos v_1,\quad \bar v_2 = \bar v_3\, v_1 .
+$$ {#eq-ad-adjoints}
+A single reverse sweep therefore returns the whole gradient $\nabla f = (\bar v_1, \bar v_2)^\top = (x_2 + \cos x_1,\; x_1)^\top$.
+:::
+
+![Computational graph of $f(x_1,x_2) = x_1x_2 + \sin x_1$. Forward mode follows the arrows; reverse mode sends adjoints against them.](../figures/fig-comp-graph){#fig-comp-graph fig-alt="A directed graph with input nodes v1 = x1 and v2 = x2 on the left, a product node v3 and a sine node v4 in the middle, and the output node v5 = v3 + v4 on the right; arrows lead from v1 to v3 and v4, from v2 to v3, and from v3 and v4 to v5." width="75%"}
+
+::: {#prp-reverse-cost name="Cost of reverse mode"}
+For a scalar function evaluated by a program with $N$ elementary operations, reverse-mode AD computes the full gradient with a number of operations bounded by a small constant multiple of $N$, independently of the number $n$ of inputs. The price is memory: the intermediate values of the forward sweep must be stored or recomputed [@griewank2008].
+:::
+
+This *cheap gradient principle* is what makes training networks with millions of parameters feasible. Backpropagation, derived in @sec-neural-networks-feedforward-networks-and-backpropagation, is reverse-mode AD applied to the loss of a network; forward mode remains preferable when a function has few inputs and many outputs [@baydin2018].
+
+::: {#exr-ad-trace}
+Write the evaluation trace and the reverse sweep for $g(x, y) = e^{xy}/(1 + y^2)$, and check the resulting gradient against direct differentiation.
+:::

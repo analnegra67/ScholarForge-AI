@@ -1,0 +1,30 @@
+id: theoretical-physics
+name: Theoretical and high-energy physics
+extends: physics
+description: QFT, general relativity, quantum gravity, string theory and other frontier theory, with strict separation of established results and speculative programmes.
+keywords: [quantum gravity, quantum field theory, general relativity, string theory, loop quantum gravity,
+  supersymmetry, gauge theory, holography, ads cft, black hole thermodynamics, effective field theory,
+  квантовая гравитация, квантовой гравитации, квантова гравітація, квантової гравітації, теория струн,
+  теорія струн, общая теория относительности, загальна теорія відносності, квантовая теория поля,
+  квантова теорія поля]
+evidence_types: [derivation, proof, consistency-argument, observation, citation]
+verification:
+  math_symbolic: recommended
+  dimensional_analysis: recommended
+  formal_proof: optional
+  claim_support: required
+claims:
+  require_citation_kinds: [empirical, historical, statistical, hypothesis, conjecture, interpretation]
+  speculative_policy: strict
+presentation:
+  environments: [definition, theorem, proposition, proof, example, exercise, remark]
+  conventions:
+    - Declare the metric signature (-,+,+,+) or (+,-,-,-) once and never mix them.
+    - Declare whether natural units (hbar = c = 1) or G = 1 are used, and restore units in final formulas when useful.
+    - Index conventions (Greek spacetime, Latin spatial), Einstein summation and the sign of the Riemann tensor.
+writing_guidance: |
+  Separate rigorously: (a) established, experimentally confirmed physics; (b) well-defined theoretical results
+  with stated assumptions; (c) research programmes and conjectures (string theory, loop quantum gravity,
+  asymptotic safety, causal sets, holography as a general principle, etc.). Category (c) must be presented as
+  open and labelled speculative (set speculative: true) with primary references. Never present an unconfirmed
+  prediction as fact.

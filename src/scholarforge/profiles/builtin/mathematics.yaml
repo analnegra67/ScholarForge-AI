@@ -1,0 +1,27 @@
+id: mathematics
+name: Mathematics
+extends: generic-science
+description: Pure and applied mathematics; proofs are the primary evidence.
+keywords: [mathematics, mathematical, algebra, linear algebra, calculus, real analysis, complex analysis, topology,
+  differential geometry, geometry, number theory, combinatorics, probability theory, measure theory,
+  functional analysis, category theory, mathematical logic, set theory, математика, математичн, математическ,
+  алгебра, топологи, геометри, теория чисел, теорія чисел, комбинаторик]
+evidence_types: [proof, counterexample, computation, citation]
+verification:
+  math_symbolic: recommended
+  numeric_checks: recommended
+  formal_proof: optional
+  claim_support: optional
+claims:
+  require_citation_kinds: [historical]
+  theorem_needs_proof_or_citation: true
+presentation:
+  environments: [definition, theorem, lemma, proposition, corollary, proof, example, exercise, remark]
+  conventions:
+    - Declare notation for vectors, matrices, norms and inner products before first use.
+    - State the domain and codomain of every function that appears in a theorem.
+    - Every theorem has a proof, a proof sketch explicitly labelled as such, or a citation.
+writing_guidance: |
+  State definitions before use and theorems with all hypotheses. Proofs must be complete or explicitly
+  labelled as sketches with a reference to a complete proof. Prefer machine-checkable formulas: attach
+  math_checks (identity, derivative, integral, limit, matrix_identity, inequality) to computational claims.

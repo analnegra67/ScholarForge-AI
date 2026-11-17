@@ -1,0 +1,14 @@
+{
+  "name": "scholarforge",
+  "description": "ScholarForge: autonomous scientific publishing for Claude Code",
+  "owner": {
+    "name": "ScholarForge"
+  },
+  "plugins": [
+    {
+      "name": "scholarforge",
+      "source": "./plugins/claude-code/scholarforge",
+      "description": "Write, verify and typeset rigorous scientific books (HTML, EPUB, PDF, print-ready PDF) with local Quarto and LuaLaTeX."
+    }
+  ]
+}

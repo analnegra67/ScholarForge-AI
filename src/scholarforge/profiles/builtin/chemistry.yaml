@@ -1,0 +1,12 @@
+id: chemistry
+name: Chemistry
+extends: generic-science
+keywords: [chemistry, organic chemistry, inorganic chemistry, physical chemistry, quantum chemistry, spectroscopy,
+  химия, хімія]
+evidence_types: [experiment, computation, derivation, citation]
+verification:
+  math_symbolic: recommended
+  dimensional_analysis: recommended
+writing_guidance: |
+  Use IUPAC nomenclature, balanced equations with states and conditions, and check physical-chemistry formulas
+  for dimensional consistency.

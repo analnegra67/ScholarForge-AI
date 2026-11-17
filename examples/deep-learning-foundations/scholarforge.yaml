@@ -1,0 +1,86 @@
+format_version: 1
+id: prj_01M7NHYBZT8BM04JBQP8MQVWBY
+slug: mathematical-foundations-of-deep-learning
+created_at: '2026-11-17T20:07:32.091Z'
+engine_version: 0.1.0
+params:
+  topic: Mathematical Foundations of Deep Learning
+  title: Mathematical Foundations of Deep Learning
+  subtitle: null
+  request: Create a rigorous scientific textbook about the Mathematical Foundations of Deep Learning.
+    Include calculus, linear algebra, optimization, automatic differentiation, neural networks, proofs,
+    exercises, figures, references and a print-ready edition.
+  language: en
+  level: graduate
+  audience: null
+  depth: rigorous
+  target_pages: 5
+  book_type: textbook
+  style: null
+  formats:
+  - html
+  - epub
+  - pdf
+  - print
+  - latex
+  - quarto
+  required_topics:
+  - calculus
+  - linear algebra
+  - optimization
+  - automatic differentiation
+  - neural networks
+  elements:
+  - proofs
+  - exercises
+  - figures
+  - references
+  illustrations: auto
+  profile: null
+  authors: []
+  extra: {}
+print:
+  trim: 7x10in
+  bleed_mm: 3.175
+  binding: perfect
+  paper: kdp-white
+  page_thickness_mm: null
+  ppi: null
+  color: bw
+  margins:
+    inner_mm: 19.0
+    outer_mm: 15.0
+    top_mm: 18.0
+    bottom_mm: 20.0
+  auto_gutter: true
+  crop_marks: false
+  pdfx: true
+  icc_profile: auto
+  min_image_ppi: 300
+  font_size_pt: 10.5
+  cover:
+    background: '#1F3A5F'
+    text_color: '#FFFFFF'
+    accent: '#E8B04B'
+    back_text: null
+    front_image: null
+    spine_text: true
+    min_spine_text_mm: 6.0
+    min_pages_for_spine_text: 79
+  printer_notes: null
+build:
+  csl: null
+  block_headings: true
+  html_theme: cosmo
+  pdf_documentclass: scrbook
+  pdf_papersize: a4
+  fontsize: 11pt
+  mainfont: null
+  sansfont: null
+  monofont: null
+  mathfont: null
+  number_sections: true
+  toc_depth: 2
+  epub_math: mathml
+  include_verification_appendix: true
+  index: true

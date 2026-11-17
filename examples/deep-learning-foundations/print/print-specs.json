@@ -1,0 +1,51 @@
+{
+  "trim_mm": [
+    177.8,
+    254.0
+  ],
+  "bleed_mm": 3.175,
+  "pages": 25,
+  "binding": "perfect",
+  "paper": "kdp-white",
+  "per_page_thickness_mm": 0.0572,
+  "spine_mm": 1.487,
+  "color": "bw",
+  "output_intent": "FOGRA39",
+  "pdfx_labelled": true,
+  "color_conversion": {
+    "mode": "gray",
+    "streams": 3,
+    "rgb_ops_converted": 0,
+    "cmyk_ops_converted": 0,
+    "images_converted": 0,
+    "colorspaces_converted": 1,
+    "annotations_removed": 0,
+    "unsupported": []
+  },
+  "notes": [],
+  "cover": {
+    "geometry": {
+      "trim_width_mm": 177.8,
+      "trim_height_mm": 254.0,
+      "bleed_mm": 3.175,
+      "spine_mm": 1.487,
+      "pages": 26,
+      "cover_width_mm": 363.437,
+      "cover_height_mm": 260.35
+    },
+    "ok": true,
+    "path": "<project>\\exports\\print\\cover.pdf",
+    "pdfx": true
+  },
+  "geometry": [
+    "paperwidth=184.150mm",
+    "paperheight=260.350mm",
+    "inner=22.175mm",
+    "outer=18.175mm",
+    "top=21.175mm",
+    "bottom=23.175mm",
+    "headsep=6mm",
+    "footskip=10mm",
+    "twoside"
+  ]
+}

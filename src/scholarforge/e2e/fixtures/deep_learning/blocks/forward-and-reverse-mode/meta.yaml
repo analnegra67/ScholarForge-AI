@@ -1,0 +1,31 @@
+summary: >-
+  Introduces computational graphs, works through forward-mode tangents and reverse-mode adjoints for
+  f = x1 x2 + sin x1, states the cost of reverse mode and connects it to backpropagation.
+terms:
+  - {term: computational graph, definition: "the directed graph of intermediate values of a program and the elementary operations that produce them"}
+  - {term: automatic differentiation, definition: "exact-to-rounding evaluation of derivatives by applying the chain rule to a program's elementary operations", aliases: [AD]}
+  - {term: reverse mode, definition: "automatic differentiation that propagates adjoints from the output back to the inputs after a forward evaluation"}
+  - {term: forward mode, definition: "automatic differentiation that propagates tangents alongside the values from the inputs to the outputs"}
+notation:
+  - {symbol: 'v_i', meaning: "intermediate value number i of an evaluation trace"}
+  - {symbol: '\dot v_i', meaning: "tangent (forward-mode derivative) of v_i"}
+  - {symbol: '\bar v_i', meaning: "adjoint of v_i, the derivative of the output with respect to v_i"}
+claims:
+  - {kind: proposition, text: "For f = x1 x2 + sin x1, the reverse sweep returns grad f = (x2 + cos x1, x1).", check_ids: [ad-gradient]}
+  - {label: prp-reverse-cost, kind: proposition, text: "Reverse-mode AD computes the gradient of a scalar function at a cost bounded by a small constant multiple of the cost of evaluating the function, independently of the number of inputs.", citations: [griewank2008, baydin2018]}
+  - {kind: fact, text: "Automatic differentiation is a family of techniques more general than backpropagation for evaluating derivatives of programs.", citations: [baydin2018]}
+  - {kind: proposition, text: "The gradient of g(x, y) = exp(xy)/(1 + y^2) is (y e^{xy}/(1+y^2), x e^{xy}/(1+y^2) - 2y e^{xy}/(1+y^2)^2).", check_ids: [ad-exercise-gradient]}
+math_checks:
+  - {id: ad-gradient, kind: gradient, expr: "x1*x2 + sin(x1)", var: [x1, x2], expected: ["x2 + cos(x1)", "x1"]}
+  - id: ad-exercise-gradient
+    kind: gradient
+    expr: "exp(x*y)/(1 + y**2)"
+    var: [x, y]
+    expected: ["y*exp(x*y)/(1 + y**2)", "x*exp(x*y)/(1 + y**2) - 2*y*exp(x*y)/(1 + y**2)**2"]
+figures:
+  - label: fig-comp-graph
+    renderer: matplotlib
+    code_file: fig-comp-graph.py
+    caption: "Computational graph of $f(x_1,x_2) = x_1x_2 + \\sin x_1$. Forward mode follows the arrows; reverse mode sends adjoints against them."
+    alt_text: "A directed graph with input nodes v1 = x1 and v2 = x2 on the left, a product node v3 and a sine node v4 in the middle, and the output node v5 = v3 + v4 on the right; arrows lead from v1 to v3 and v4, from v2 to v3, and from v3 and v4 to v5."
+    width: 0.75

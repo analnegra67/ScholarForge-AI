@@ -1,0 +1,629 @@
+{
+  "generated_at": "2026-11-17T20:12:47.028Z",
+  "engine_version": "0.1.0",
+  "project_id": "prj_01M7NHYBZT8BM04JBQP8MQVWBY",
+  "title": "Mathematical Foundations of Deep Learning",
+  "blocks": {
+    "total": 6,
+    "planned": 0,
+    "drafted": 0,
+    "revising": 0,
+    "verified": 6,
+    "needs_review": 0,
+    "final": 0
+  },
+  "needs_expert_review_blocks": [],
+  "claims": {
+    "counts": {
+      "verified": 7,
+      "supported": 13,
+      "contested": 1,
+      "unverified": 4,
+      "requires_expert_review": 0
+    },
+    "items": [
+      {
+        "chapter": "Calculus",
+        "kind": "theorem",
+        "status": "unverified",
+        "reason": "proof given in the text; not machine-checked",
+        "text": "If g is differentiable at a and f is differentiable at g(a), then (f o g)'(a) = f'(g(a)) g'(a).",
+        "citations": [],
+        "label": "thm-chain-rule"
+      },
+      {
+        "chapter": "Calculus",
+        "kind": "proposition",
+        "status": "verified",
+        "reason": "independently verified by exact symbolic computation (SymPy)",
+        "text": "The logistic sigmoid satisfies sigma'(x) = sigma(x)(1 - sigma(x)).",
+        "citations": [],
+        "label": null
+      },
+      {
+        "chapter": "Calculus",
+        "kind": "proposition",
+        "status": "verified",
+        "reason": "independently verified by exact symbolic computation (SymPy)",
+        "text": "0 < sigma'(x) <= 1/4 for every real x.",
+        "citations": [],
+        "label": null
+      },
+      {
+        "chapter": "Calculus",
+        "kind": "empirical",
+        "status": "unverified",
+        "reason": "cited sources exist; no retrievable abstract or text to confirm the claim",
+        "text": "Small sigmoid derivatives multiply along deep networks, which makes deep sigmoid networks hard to train with gradient methods.",
+        "citations": [
+          "goodfellow2016"
+        ],
+        "label": null
+      },
+      {
+        "chapter": "Calculus",
+        "kind": "proposition",
+        "status": "supported",
+        "reason": "evidence from special-case, numerical or dimensional checks (not a proof)",
+        "text": "tanh(x) = 2 sigma(2x) - 1 and tanh'(x) = 1 - tanh(x)^2.",
+        "citations": [],
+        "label": null
+      },
+      {
+        "chapter": "Linear Algebra",
+        "kind": "proposition",
+        "status": "supported",
+        "reason": "evidence from special-case, numerical or dimensional checks (not a proof)",
+        "text": "(AB)^T = B^T A^T for conformable matrices A and B.",
+        "citations": [],
+        "label": "prp-transpose-product"
+      },
+      {
+        "chapter": "Linear Algebra",
+        "kind": "proposition",
+        "status": "supported",
+        "reason": "evidence from special-case, numerical or dimensional checks (not a proof)",
+        "text": "The gradient of q(x) = x^T A x is (A + A^T) x.",
+        "citations": [],
+        "label": "prp-quadratic-gradient"
+      },
+      {
+        "chapter": "Linear Algebra",
+        "kind": "proposition",
+        "status": "supported",
+        "reason": "evidence from special-case, numerical or dimensional checks (not a proof)",
+        "text": "The least-squares loss L(w) = 1/2 ||Xw - y||^2 has gradient X^T (Xw - y).",
+        "citations": [],
+        "label": null
+      },
+      {
+        "chapter": "Optimization",
+        "kind": "lemma",
+        "status": "supported",
+        "reason": "evidence from special-case, numerical or dimensional checks (not a proof)",
+        "text": "If f is L-smooth then f(y) <= f(x) + grad f(x)^T (y - x) + (L/2) ||y - x||^2.",
+        "citations": [],
+        "label": "lem-descent"
+      },
+      {
+        "chapter": "Optimization",
+        "kind": "theorem",
+        "status": "supported",
+        "reason": "verified source bottou2018 contains the quoted evidence",
+        "text": "For convex L-smooth f, gradient descent with step 1/L satisfies f(x_k) - f(x*) <= L ||x_0 - x*||^2 / (2k).",
+        "citations": [
+          "boyd2004",
+          "bottou2018"
+        ],
+        "label": "thm-gd-convex"
+      },
+      {
+        "chapter": "Optimization",
+        "kind": "proposition",
+        "status": "verified",
+        "reason": "independently verified by exact symbolic computation (SymPy)",
+        "text": "On a quadratic with curvature h, gradient descent multiplies the coordinate by (1 - eta h) at each step.",
+        "citations": [],
+        "label": null
+      },
+      {
+        "chapter": "Optimization",
+        "kind": "fact",
+        "status": "supported",
+        "reason": "verified source bottou2018 contains the quoted evidence",
+        "text": "Training in deep learning replaces the exact gradient by a stochastic estimate computed on a random mini-batch.",
+        "citations": [
+          "robbins1951",
+          "bottou2018"
+        ],
+        "label": null
+      },
+      {
+        "chapter": "Optimization",
+        "kind": "proposition",
+        "status": "supported",
+        "reason": "evidence from special-case, numerical or dimensional checks (not a proof)",
+        "text": "With x_{k+1} = x_k - g/L, ||x_{k+1} - s||^2 = ||x_k - s||^2 - (2/L) g^T (x_k - s) + ||g||^2 / L^2.",
+        "citations": [],
+        "label": null
+      },
+      {
+        "chapter": "Automatic Differentiation",
+        "kind": "proposition",
+        "status": "verified",
+        "reason": "independently verified by exact symbolic computation (SymPy)",
+        "text": "For f = x1 x2 + sin x1, the reverse sweep returns grad f = (x2 + cos x1, x1).",
+        "citations": [],
+        "label": null
+      },
+      {
+        "chapter": "Automatic Differentiation",
+        "kind": "proposition",
+        "status": "supported",
+        "reason": "verified source baydin2018 contains the quoted evidence",
+        "text": "Reverse-mode AD computes the gradient of a scalar function at a cost bounded by a small constant multiple of the cost of evaluating the function, independently of the number of inputs.",
+        "citations": [
+          "griewank2008",
+          "baydin2018"
+        ],
+        "label": "prp-reverse-cost"
+      },
+      {
+        "chapter": "Automatic Differentiation",
+        "kind": "fact",
+        "status": "supported",
+        "reason": "verified source baydin2018 contains the quoted evidence",
+        "text": "Automatic differentiation is a family of techniques more general than backpropagation for evaluating derivatives of programs.",
+        "citations": [
+          "baydin2018"
+        ],
+        "label": null
+      },
+      {
+        "chapter": "Automatic Differentiation",
+        "kind": "proposition",
+        "status": "verified",
+        "reason": "independently verified by exact symbolic computation (SymPy)",
+        "text": "The gradient of g(x, y) = exp(xy)/(1 + y^2) is (y e^{xy}/(1+y^2), x e^{xy}/(1+y^2) - 2y e^{xy}/(1+y^2)^2).",
+        "citations": [],
+        "label": null
+      },
+      {
+        "chapter": "Neural Networks",
+        "kind": "proposition",
+        "status": "supported",
+        "reason": "evidence from special-case, numerical or dimensional checks (not a proof)",
+        "text": "The gradient of the softmax cross-entropy with respect to the scores is p - e_y.",
+        "citations": [],
+        "label": "prp-softmax-gradient"
+      },
+      {
+        "chapter": "Neural Networks",
+        "kind": "proposition",
+        "status": "verified",
+        "reason": "independently verified by exact symbolic computation (SymPy)",
+        "text": "For the two-parameter network the gradients are (w2 s - t) s and (w2 s - t) w2 s (1 - s) x with s = sigma(w1 x).",
+        "citations": [],
+        "label": null
+      },
+      {
+        "chapter": "Neural Networks",
+        "kind": "historical",
+        "status": "unverified",
+        "reason": "cited sources exist; no retrievable abstract or text to confirm the claim",
+        "text": "Rumelhart, Hinton and Williams (1986) popularised backpropagation and showed that hidden units come to represent important features of the task domain.",
+        "citations": [
+          "rumelhart1986"
+        ],
+        "label": null
+      },
+      {
+        "chapter": "Neural Networks",
+        "kind": "theorem",
+        "status": "supported",
+        "reason": "verified source cybenko1989 contains the quoted evidence",
+        "text": "Finite sums of sigmoidal units uniformly approximate every continuous function on the unit hypercube.",
+        "citations": [
+          "cybenko1989"
+        ],
+        "label": "thm-universal-approximation"
+      },
+      {
+        "chapter": "Neural Networks",
+        "kind": "theorem",
+        "status": "unverified",
+        "reason": "cited sources exist; no retrievable abstract or text to confirm the claim",
+        "text": "Multilayer feedforward networks with a bounded nonconstant activation are universal approximators with respect to Lp(mu) criteria.",
+        "citations": [
+          "hornik1991"
+        ],
+        "label": null
+      },
+      {
+        "chapter": "Neural Networks",
+        "kind": "interpretation",
+        "status": "contested",
+        "reason": "speculative / open question, labelled as such",
+        "text": "Why heavily overparameterised networks trained by stochastic gradient descent generalise well is still an open research question.",
+        "citations": [
+          "lecun2015"
+        ],
+        "label": null
+      },
+      {
+        "chapter": "Neural Networks",
+        "kind": "proposition",
+        "status": "verified",
+        "reason": "independently verified by exact symbolic computation (SymPy)",
+        "text": "The hat h(t) = ReLU(t) - 2 ReLU(t - 1/2) + ReLU(t - 1) satisfies h(1/2) = 1/2.",
+        "citations": [],
+        "label": null
+      },
+      {
+        "chapter": "Neural Networks",
+        "kind": "proposition",
+        "status": "supported",
+        "reason": "evidence from special-case, numerical or dimensional checks (not a proof)",
+        "text": "The hat h vanishes outside [0, 1].",
+        "citations": [],
+        "label": null
+      }
+    ]
+  },
+  "sources": {
+    "counts": {
+      "proposed": 0,
+      "pending": 0,
+      "verified": 12,
+      "mismatch": 0,
+      "not_found": 0,
+      "unverifiable": 0,
+      "retracted": 0,
+      "rejected": 1
+    },
+    "items": [
+      {
+        "citekey": "baydin2018",
+        "status": "verified",
+        "title": "Automatic differentiation in machine learning: a survey",
+        "year": 2015,
+        "doi": null,
+        "arxiv": "1502.05767",
+        "isbn": null,
+        "reason": "exists and metadata matches (arxiv)"
+      },
+      {
+        "citekey": "bottou2018",
+        "status": "verified",
+        "title": "Optimization Methods for Large-Scale Machine Learning",
+        "year": 2018,
+        "doi": "10.1137/16M1080173",
+        "arxiv": null,
+        "isbn": null,
+        "reason": "exists and metadata matches (crossref)"
+      },
+      {
+        "citekey": "boyd2004",
+        "status": "verified",
+        "title": "Convex Optimization",
+        "year": 2004,
+        "doi": "10.1017/CBO9780511804441",
+        "arxiv": null,
+        "isbn": "9780521833783",
+        "reason": "exists and metadata matches (crossref, openalex)"
+      },
+      {
+        "citekey": "cybenko1989",
+        "status": "verified",
+        "title": "Approximation by superpositions of a sigmoidal function",
+        "year": 1989,
+        "doi": "10.1007/BF02551274",
+        "arxiv": null,
+        "isbn": null,
+        "reason": "exists and metadata matches (crossref, openalex)"
+      },
+      {
+        "citekey": "doe2019",
+        "status": "rejected",
+        "title": "Gradient Flows in Infinite-Width Transformers Are Always Convex",
+        "year": 2019,
+        "doi": "10.9999/sf-fabricated.2019.00123",
+        "arxiv": null,
+        "isbn": null,
+        "reason": "identifier does not resolve in any service (crossref:10.9999/sf-fabricated.2019.00123, openalex:10.9999/sf-fabricated.2019.00123, semantic_scholar:10.9999/sf-fabricated.2019.00123); the reference is probably fabricated or mistyped"
+      },
+      {
+        "citekey": "goodfellow2016",
+        "status": "verified",
+        "title": "Deep Learning",
+        "year": 2017,
+        "doi": null,
+        "arxiv": null,
+        "isbn": "9780262035613",
+        "reason": "exists and metadata matches (openlibrary)"
+      },
+      {
+        "citekey": "griewank2008",
+        "status": "verified",
+        "title": "Evaluating Derivatives: Principles and Techniques of Algorithmic Differentiation, Second Edition",
+        "year": 2008,
+        "doi": "10.1137/1.9780898717761",
+        "arxiv": null,
+        "isbn": "9780898716597",
+        "reason": "exists and metadata matches (crossref, openalex)"
+      },
+      {
+        "citekey": "hornik1991",
+        "status": "verified",
+        "title": "Approximation capabilities of multilayer feedforward networks",
+        "year": 1991,
+        "doi": "10.1016/0893-6080(91)90009-T",
+        "arxiv": null,
+        "isbn": null,
+        "reason": "exists and metadata matches (crossref, openalex)"
+      },
+      {
+        "citekey": "kingma2014",
+        "status": "verified",
+        "title": "Adam: A Method for Stochastic Optimization",
+        "year": 2014,
+        "doi": null,
+        "arxiv": "1412.6980",
+        "isbn": null,
+        "reason": "exists and metadata matches (arxiv)"
+      },
+      {
+        "citekey": "lecun2015",
+        "status": "verified",
+        "title": "Deep learning",
+        "year": 2015,
+        "doi": "10.1038/nature14539",
+        "arxiv": null,
+        "isbn": null,
+        "reason": "exists and metadata matches (crossref, openalex)"
+      },
+      {
+        "citekey": "robbins1951",
+        "status": "verified",
+        "title": "A Stochastic Approximation Method",
+        "year": 1951,
+        "doi": "10.1214/aoms/1177729586",
+        "arxiv": null,
+        "isbn": null,
+        "reason": "exists and metadata matches (crossref, openalex)"
+      },
+      {
+        "citekey": "rumelhart1986",
+        "status": "verified",
+        "title": "Learning representations by back-propagating errors",
+        "year": 1986,
+        "doi": "10.1038/323533a0",
+        "arxiv": null,
+        "isbn": null,
+        "reason": "exists and metadata matches (crossref, openalex)"
+      },
+      {
+        "citekey": "silver2016",
+        "status": "verified",
+        "title": "Mastering the game of Go with deep neural networks and tree search",
+        "year": 2016,
+        "doi": "10.1038/nature16961",
+        "arxiv": null,
+        "isbn": null,
+        "reason": "exists and metadata matches (crossref, openalex)"
+      }
+    ]
+  },
+  "math_checks": [
+    {
+      "chapter": "Calculus",
+      "id": "sigmoid-derivative",
+      "kind": "derivative",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "d^1/dx^1: proved symbolically (difference simplifies to 0)"
+    },
+    {
+      "chapter": "Calculus",
+      "id": "sigmoid-derivative-bound",
+      "kind": "inequality",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "inequality holds for all x in Reals (proved by solveset)"
+    },
+    {
+      "chapter": "Calculus",
+      "id": "sigmoid-derivative-positive",
+      "kind": "inequality",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "inequality decided by SymPy's assumption system (always true)"
+    },
+    {
+      "chapter": "Calculus",
+      "id": "tanh-identity",
+      "kind": "identity",
+      "outcome": "pass",
+      "method": "numeric",
+      "message": "identity: agrees numerically at 24 random points (no symbolic proof found)"
+    },
+    {
+      "chapter": "Calculus",
+      "id": "tanh-derivative",
+      "kind": "derivative",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "d^1/dx^1: proved symbolically (difference simplifies to 0)"
+    },
+    {
+      "chapter": "Linear Algebra",
+      "id": "transpose-product",
+      "kind": "matrix_identity",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "matrix identity: proved symbolically (difference simplifies to 0)"
+    },
+    {
+      "chapter": "Linear Algebra",
+      "id": "quadratic-gradient",
+      "kind": "gradient",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "gradient: all components proved symbolically"
+    },
+    {
+      "chapter": "Linear Algebra",
+      "id": "least-squares-gradient",
+      "kind": "derivative",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "d^1/dw^1: proved symbolically (difference simplifies to 0)"
+    },
+    {
+      "chapter": "Optimization",
+      "id": "descent-quadratic-equality",
+      "kind": "identity",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "identity: proved symbolically (difference simplifies to 0)"
+    },
+    {
+      "chapter": "Optimization",
+      "id": "gd-quadratic-step",
+      "kind": "identity",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "identity: proved symbolically (difference simplifies to 0)"
+    },
+    {
+      "chapter": "Optimization",
+      "id": "telescoping-expansion",
+      "kind": "identity",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "identity: proved symbolically (difference simplifies to 0)"
+    },
+    {
+      "chapter": "Automatic Differentiation",
+      "id": "ad-gradient",
+      "kind": "gradient",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "gradient: all components proved symbolically"
+    },
+    {
+      "chapter": "Automatic Differentiation",
+      "id": "ad-exercise-gradient",
+      "kind": "gradient",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "gradient: all components proved symbolically"
+    },
+    {
+      "chapter": "Neural Networks",
+      "id": "softmax-ce-z1",
+      "kind": "identity",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "identity: proved symbolically (difference simplifies to 0)"
+    },
+    {
+      "chapter": "Neural Networks",
+      "id": "softmax-ce-z2",
+      "kind": "identity",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "identity: proved symbolically (difference simplifies to 0)"
+    },
+    {
+      "chapter": "Neural Networks",
+      "id": "two-layer-w2",
+      "kind": "derivative",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "d^1/dw2^1: proved symbolically (difference simplifies to 0)"
+    },
+    {
+      "chapter": "Neural Networks",
+      "id": "two-layer-w1",
+      "kind": "derivative",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "d^1/dw1^1: proved symbolically (difference simplifies to 0)"
+    },
+    {
+      "chapter": "Neural Networks",
+      "id": "hat-peak",
+      "kind": "numeric",
+      "outcome": "pass",
+      "method": "symbolic",
+      "message": "value equals 1/2 exactly"
+    },
+    {
+      "chapter": "Neural Networks",
+      "id": "hat-right",
+      "kind": "identity",
+      "outcome": "pass",
+      "method": "numeric",
+      "message": "identity: agrees numerically at 24 random points (no symbolic proof found)"
+    },
+    {
+      "chapter": "Neural Networks",
+      "id": "hat-left",
+      "kind": "identity",
+      "outcome": "pass",
+      "method": "numeric",
+      "message": "identity: agrees numerically at 24 random points (no symbolic proof found)"
+    }
+  ],
+  "figures": [
+    {
+      "label": "fig-sigmoid",
+      "status": "approved",
+      "renderer": "matplotlib",
+      "mode": "native",
+      "ai_generated": false,
+      "host_review": {
+        "verdict": "ok",
+        "problems": [],
+        "independent": false
+      },
+      "caption": "The logistic sigmoid $\\sigma$ (solid) and its derivative $\\sigma'$ (dashed); the derivative never exceeds $1/4$."
+    },
+    {
+      "label": "fig-gd-paths",
+      "status": "approved",
+      "renderer": "matplotlib",
+      "mode": "native",
+      "ai_generated": false,
+      "host_review": {
+        "verdict": "ok",
+        "problems": [],
+        "independent": false
+      },
+      "caption": "Gradient descent on $f(\\mathbf{x}) = \\tfrac12(x_1^2 + 10x_2^2)$ from $(-9, 1.5)$ with $\\eta = 0.1 = 1/L$ (solid) and $\\eta = 0.19$ (dashed), shown over level sets of $f$."
+    },
+    {
+      "label": "fig-comp-graph",
+      "status": "approved",
+      "renderer": "matplotlib",
+      "mode": "native",
+      "ai_generated": false,
+      "host_review": {
+        "verdict": "ok",
+        "problems": [],
+        "independent": false
+      },
+      "caption": "Computational graph of $f(x_1,x_2) = x_1x_2 + \\sin x_1$. Forward mode follows the arrows; reverse mode sends adjoints against them."
+    }
+  ],
+  "open_issues": [],
+  "not_verified_by_design": [
+    "Prose arguments and proofs written in natural language are not machine-checked unless a math check or a Lean proof is attached to them.",
+    "Claim-support assessments are judgements of the host language model; only evidence quotes that match the retrieved source text count as independent evidence.",
+    "Source verification confirms that a cited work exists and matches its metadata; it does not confirm that every detail of the work is correct.",
+    "Numerical agreement of formulas at random points is evidence, not proof.",
+    "Figure correctness is reviewed by the host model unless the figure is generated from code you can inspect (sources are stored under figures/).",
+    "Language-model review of its own text is never counted as independent verification."
+  ]
+}

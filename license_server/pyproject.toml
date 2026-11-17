@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "scholarforge-license-server"
+version = "0.1.0"
+description = "Minimal subscription/license service for ScholarForge Pro. Never receives book content."
+requires-python = ">=3.12"
+license = { text = "Proprietary" }
+dependencies = [
+  "scholarforge>=0.1.0",
+  "starlette>=0.40",
+  "uvicorn>=0.30",
+  "httpx>=0.28,<1",
+]
+
+[project.scripts]
+scholarforge-license-server = "scholarforge_license_server.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/scholarforge_license_server"]

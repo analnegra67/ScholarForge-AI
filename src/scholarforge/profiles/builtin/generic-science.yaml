@@ -1,0 +1,31 @@
+id: generic-science
+name: General science and scholarship
+description: Root profile. Conservative defaults for any discipline not covered by a more specific profile.
+keywords: [science, scholarship, наука]
+evidence_types: [citation, argument, observation, experiment, proof, computation]
+verification:
+  math_symbolic: optional
+  numeric_checks: optional
+  dimensional_analysis: "off"
+  formal_proof: "off"
+  claim_support: recommended
+sources:
+  databases: [crossref, openalex, arxiv, semantic_scholar, openlibrary]
+  min_sources: 3
+  prefer_primary: true
+claims:
+  require_citation_kinds: [empirical, historical, statistical, clinical]
+  theorem_needs_proof_or_citation: true
+  speculative_policy: label
+  high_stakes_kinds: []
+presentation:
+  environments: [definition, example, remark, exercise]
+  conventions:
+    - Fix terminology once and reuse it; list synonyms explicitly.
+  exercises: true
+writing_guidance: |
+  Write precise, well-structured scholarly prose for the stated audience. Every paragraph must add
+  information: no padding, no restating earlier sections, no generic filler. Distinguish established
+  results from hypotheses and open questions, and say which is which. Cite primary literature where a
+  claim is not common knowledge in the field. Never invent references, data, experiments or results.
+safety_notes: []

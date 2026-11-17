@@ -1,0 +1,5 @@
+
+/* ScholarForge screen styles */
+.theorem, .lemma, .proposition, .corollary, .definition { border-left: 3px solid #4a6fa5; padding-left: .8em; }
+.proof { border-left: 2px dotted #888; padding-left: .8em; }
+figure img { max-width: 100%; height: auto; }

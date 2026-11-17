@@ -1,0 +1,22 @@
+# Verification report {#sec-verification-report}
+
+This appendix is generated automatically. It states what was verified and how.
+
+| Claim status | Count | Meaning |
+|:--|--:|:--|
+| verified | 7 | proved by exact computer algebra or a formal proof |
+| supported | 13 | independent evidence agrees (numerical checks, or quoted evidence found in a verified source) |
+| contested | 1 | speculative/open, or a source does not support it |
+| unverified | 4 | no independent evidence yet |
+| requires expert review | 0 | a check failed or the claim is high-stakes |
+
+Machine-checked formulas: 17 proved symbolically or formally, 3 supported numerically or dimensionally.
+
+| Source status | Count |
+|:--|--:|
+| verified | 12 |
+| rejected | 1 |
+
+Only *verified* sources (existence and metadata confirmed in Crossref, OpenAlex, arXiv or Open Library) can be cited in this book.
+
+A language model's own review of its text is never counted as independent verification.

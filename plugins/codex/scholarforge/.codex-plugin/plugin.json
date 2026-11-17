@@ -1,0 +1,40 @@
+{
+  "name": "scholarforge",
+  "version": "0.1.0",
+  "description": "Autonomous scientific publishing: research plans, verified sources, machine-checked mathematics, figures and print-ready books built locally with Quarto and LuaLaTeX.",
+  "author": {
+    "name": "ScholarForge"
+  },
+  "license": "Proprietary",
+  "keywords": [
+    "science",
+    "textbook",
+    "monograph",
+    "latex",
+    "quarto",
+    "verification",
+    "publishing"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "ScholarForge",
+    "shortDescription": "Write and publish rigorous scientific books",
+    "longDescription": "ScholarForge turns Codex into a scientific publishing studio: it plans research, verifies every cited work against Crossref, OpenAlex and arXiv, checks formulas with SymPy, renders figures, keeps terminology consistent across chapters and typesets HTML, EPUB, PDF and print-ready PDF locally with Quarto and LuaLaTeX. Book content never leaves your machine.",
+    "developerName": "ScholarForge",
+    "category": "Education & Research",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use ScholarForge to create a rigorous textbook about the mathematical foundations of deep learning.",
+      "Use ScholarForge to resume my book project and continue writing.",
+      "Use ScholarForge to build the print-ready edition and show me the preflight report."
+    ],
+    "logo": "./assets/icon.png",
+    "composerIcon": "./assets/icon.png",
+    "brandColor": "#1F3A5F"
+  }
+}

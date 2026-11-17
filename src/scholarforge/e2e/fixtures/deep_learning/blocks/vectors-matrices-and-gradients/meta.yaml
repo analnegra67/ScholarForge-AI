@@ -1,0 +1,33 @@
+summary: >-
+  Fixes vector and matrix notation, proves (AB)^T = B^T A^T, defines gradient and Jacobian, proves the
+  gradient formula for quadratic forms and derives the least-squares gradient and normal equations.
+terms:
+  - {term: inner product, definition: "for column vectors x and y, the scalar x^T y = sum_i x_i y_i"}
+  - {term: gradient, definition: "the column vector of first partial derivatives of a scalar function"}
+  - {term: Jacobian, definition: "the m-by-n matrix of first partial derivatives of a map from R^n to R^m"}
+  - {term: quadratic form, definition: "a function q(x) = x^T A x for a square matrix A"}
+notation:
+  - {symbol: '\mathbf{x}', meaning: "a column vector (bold lowercase)"}
+  - {symbol: '\mathbf{A}', meaning: "a matrix (bold uppercase)"}
+  - {symbol: '\nabla f', meaning: "gradient of f, a column vector"}
+  - {symbol: 'J_F', meaning: "Jacobian matrix of the map F"}
+claims:
+  - {label: prp-transpose-product, kind: proposition, text: "(AB)^T = B^T A^T for conformable matrices A and B.", check_ids: [transpose-product]}
+  - {label: prp-quadratic-gradient, kind: proposition, text: "The gradient of q(x) = x^T A x is (A + A^T) x.", check_ids: [quadratic-gradient]}
+  - {kind: proposition, text: "The least-squares loss L(w) = 1/2 ||Xw - y||^2 has gradient X^T (Xw - y).", check_ids: [least-squares-gradient]}
+math_checks:
+  - {id: transpose-product, kind: matrix_identity, lhs: "transpose(A*B)", rhs: "transpose(B)*transpose(A)", matrices: {A: [2, 3], B: [3, 2]}, description: "instance with symbolic 2x3 and 3x2 matrices"}
+  - id: quadratic-gradient
+    kind: gradient
+    scope: instance
+    description: "n = 2 with a general (non-symmetric) symbolic matrix"
+    expr: "a11*x1**2 + (a12 + a21)*x1*x2 + a22*x2**2"
+    var: [x1, x2]
+    expected: ["2*a11*x1 + (a12 + a21)*x2", "(a12 + a21)*x1 + 2*a22*x2"]
+  - id: least-squares-gradient
+    kind: derivative
+    scope: instance
+    description: "m = 2 data points, n = 1 weight"
+    expr: "((u1*w - y1)**2 + (u2*w - y2)**2)/2"
+    var: w
+    expected: "u1*(u1*w - y1) + u2*(u2*w - y2)"

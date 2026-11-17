@@ -1,0 +1,22 @@
+# Notation {#sec-notation}
+
+| Symbol | Meaning |
+|:--|:--|
+| $f'(a)$ | derivative of f at a |
+| $\sigma$ | logistic sigmoid function |
+| $\mathbf{x}$ | a column vector (bold lowercase) |
+| $\mathbf{A}$ | a matrix (bold uppercase) |
+| $\nabla f$ | gradient of f, a column vector |
+| $J_F$ | Jacobian matrix of the map F |
+| $\eta$ | step size (learning rate) of gradient descent |
+| $L$ | Lipschitz constant of the gradient (smoothness constant) |
+| $\mathbf{x}^\star$ | a minimiser of the objective |
+| $v_i$ | intermediate value number i of an evaluation trace |
+| $\dot v_i$ | tangent (forward-mode derivative) of v_i |
+| $\bar v_i$ | adjoint of v_i, the derivative of the output with respect to v_i |
+| $L$ | number of layers of a network |
+| $\mathbf{W}^{(\ell)}$ | weight matrix of layer ell |
+| $\boldsymbol{\delta}^{(\ell)}$ | gradient of the loss with respect to the pre-activations of layer ell |
+| $\odot$ | entrywise (Hadamard) product |
+| $\phi$ | activation function |
+| $\varepsilon$ | approximation tolerance |

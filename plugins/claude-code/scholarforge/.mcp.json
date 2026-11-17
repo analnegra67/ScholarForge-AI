@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "scholarforge": {
+      "command": "${user_config.python_command}",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/runtime/launcher.py"],
+      "env": {
+        "SCHOLARFORGE_RUNTIME_DIR": "${CLAUDE_PLUGIN_DATA}",
+        "SCHOLARFORGE_OPENAI_API_KEY": "${user_config.openai_api_key}",
+        "SCHOLARFORGE_OPENALEX_API_KEY": "${user_config.openalex_api_key}",
+        "PYTHONIOENCODING": "utf-8"
+      },
+      "timeout": 3600000
+    }
+  }
+}

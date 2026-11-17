@@ -1,0 +1,39 @@
+{
+  "name": "scholarforge",
+  "displayName": "ScholarForge",
+  "version": "0.1.0",
+  "description": "Autonomous scientific publishing: research plans, verified sources, machine-checked mathematics, figures and print-ready books (HTML, EPUB, PDF, PDF/X-4) built locally with Quarto and LuaLaTeX.",
+  "author": {
+    "name": "ScholarForge"
+  },
+  "license": "Proprietary",
+  "keywords": [
+    "science",
+    "textbook",
+    "monograph",
+    "latex",
+    "quarto",
+    "verification",
+    "publishing"
+  ],
+  "userConfig": {
+    "python_command": {
+      "type": "string",
+      "title": "Python command",
+      "description": "Python 3.12+ interpreter used to start ScholarForge (python, python3, py, or a full path).",
+      "default": "python"
+    },
+    "openai_api_key": {
+      "type": "string",
+      "title": "OpenAI API key (optional)",
+      "description": "Only for optional paid illustration generation, billed to your OpenAI account. Stored in secure storage.",
+      "sensitive": true
+    },
+    "openalex_api_key": {
+      "type": "string",
+      "title": "OpenAlex API key (optional)",
+      "description": "Free key from openalex.org for higher bibliographic lookup limits.",
+      "sensitive": true
+    }
+  }
+}

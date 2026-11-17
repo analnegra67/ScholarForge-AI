@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "scholarforge": {
+      "command": "python",
+      "args": ["./runtime/launcher.py"],
+      "cwd": ".",
+      "startup_timeout_sec": 900,
+      "tool_timeout_sec": 3600,
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      },
+      "env_vars": [
+        "PATH", "HOME", "USERPROFILE", "LOCALAPPDATA", "APPDATA", "TEMP", "TMP", "SYSTEMROOT", "WINDIR",
+        "PATHEXT", "COMSPEC", "XDG_DATA_HOME", "XDG_CACHE_HOME", "XDG_CONFIG_HOME", "LANG", "LC_ALL",
+        "SCHOLARFORGE_HOME", "SCHOLARFORGE_RUNTIME_DIR", "SCHOLARFORGE_PACKAGE", "SCHOLARFORGE_PROJECTS",
+        "SCHOLARFORGE_OPENAI_API_KEY", "OPENAI_API_KEY", "SCHOLARFORGE_OPENALEX_API_KEY", "OPENALEX_API_KEY",
+        "SCHOLARFORGE_LICENSE_SERVER", "SCHOLARFORGE_LICENSE_PUBKEYS"
+      ]
+    }
+  }
+}

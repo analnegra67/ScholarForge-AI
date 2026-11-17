@@ -1,0 +1,20 @@
+summary: >-
+  States the universal approximation theorem for sigmoidal activations (Cybenko) and Hornik's extension,
+  explains what the theorem does not guarantee, and builds ReLU hat functions as a constructive 1-D example.
+terms:
+  - {term: universal approximation, definition: "the property that one-hidden-layer networks are dense in the continuous functions on a compact set"}
+  - {term: ReLU, definition: "the rectified linear unit t -> max(0, t)", aliases: [rectified linear unit]}
+  - {term: sigmoidal function, definition: "a function tending to 1 at plus infinity and to 0 at minus infinity"}
+notation:
+  - {symbol: '\phi', meaning: "activation function"}
+  - {symbol: '\varepsilon', meaning: "approximation tolerance"}
+claims:
+  - {label: thm-universal-approximation, kind: theorem, text: "Finite sums of sigmoidal units uniformly approximate every continuous function on the unit hypercube.", citations: [cybenko1989]}
+  - {kind: theorem, text: "Multilayer feedforward networks with a bounded nonconstant activation are universal approximators with respect to Lp(mu) criteria.", citations: [hornik1991]}
+  - {kind: interpretation, text: "Why heavily overparameterised networks trained by stochastic gradient descent generalise well is still an open research question.", citations: [lecun2015], speculative: true}
+  - {kind: proposition, text: "The hat h(t) = ReLU(t) - 2 ReLU(t - 1/2) + ReLU(t - 1) satisfies h(1/2) = 1/2.", check_ids: [hat-peak]}
+  - {kind: proposition, text: "The hat h vanishes outside [0, 1].", check_ids: [hat-right, hat-left]}
+math_checks:
+  - {id: hat-peak, kind: numeric, expr: "Max(0, Rational(1, 2)) - 2*Max(0, Rational(1, 2) - Rational(1, 2)) + Max(0, Rational(1, 2) - 1)", expected: "Rational(1, 2)"}
+  - {id: hat-right, kind: identity, scope: instance, description: "symbolic check for t >= 1", lhs: "Max(0, t) - 2*Max(0, t - Rational(1, 2)) + Max(0, t - 1)", rhs: "0", symbols: {t: {real: true}}, domain: {t: [1, 50]}}
+  - {id: hat-left, kind: identity, scope: instance, description: "check for t <= 0", lhs: "Max(0, t) - 2*Max(0, t - Rational(1, 2)) + Max(0, t - 1)", rhs: "0", symbols: {t: {real: true}}, domain: {t: [-50, 0]}}

@@ -1,0 +1,23 @@
+id: machine-learning
+name: Machine learning and artificial intelligence
+extends: computer-science
+description: Deep learning, statistical learning theory, optimisation for ML and AI.
+keywords: [deep learning, machine learning, neural network, neural networks, artificial intelligence,
+  backpropagation, automatic differentiation, reinforcement learning, transformer, statistical learning,
+  gradient descent, глубокое обучение, глубокого обучения, машинное обучение, нейронн, глибоке навчання,
+  машинне навчання, штучний інтелект, искусственный интеллект]
+evidence_types: [proof, derivation, experiment, benchmark, citation]
+verification:
+  math_symbolic: recommended
+  numeric_checks: recommended
+claims:
+  require_citation_kinds: [empirical, historical, statistical]
+presentation:
+  environments: [definition, theorem, lemma, proposition, corollary, proof, example, exercise, algorithm, remark]
+  conventions:
+    - Vectors in bold lowercase, matrices in bold uppercase (or state the alternative once).
+    - State the loss, model class and data assumptions for every theoretical guarantee.
+writing_guidance: |
+  Derive gradients explicitly and attach derivative/gradient math_checks. Distinguish theorems (with assumptions)
+  from empirical observations (with citations and the setting in which they were observed). Do not overstate
+  benchmark results or generalise beyond the cited experiments.

@@ -1,0 +1,29 @@
+summary: >-
+  Defines the derivative, proves the chain rule with the auxiliary-function argument, derives
+  sigma'(x) = sigma(x)(1 - sigma(x)) and the bound 1/4, and sets an exercise on tanh.
+terms:
+  - {term: derivative, definition: "the limit of the difference quotient (f(a+h) - f(a))/h as h tends to 0, when it exists"}
+  - {term: differentiable, definition: "a function is differentiable at a point if its derivative exists there"}
+  - {term: logistic sigmoid, definition: "the function sigma(x) = 1/(1 + exp(-x)), mapping the real line onto (0, 1)", aliases: [sigmoid]}
+notation:
+  - {symbol: "f'(a)", meaning: "derivative of f at a"}
+  - {symbol: '\sigma', meaning: "logistic sigmoid function"}
+claims:
+  - {label: thm-chain-rule, kind: theorem, text: "If g is differentiable at a and f is differentiable at g(a), then (f o g)'(a) = f'(g(a)) g'(a)."}
+  - {kind: proposition, text: "The logistic sigmoid satisfies sigma'(x) = sigma(x)(1 - sigma(x)).", check_ids: [sigmoid-derivative]}
+  - {kind: proposition, text: "0 < sigma'(x) <= 1/4 for every real x.", check_ids: [sigmoid-derivative-bound, sigmoid-derivative-positive]}
+  - {kind: empirical, text: "Small sigmoid derivatives multiply along deep networks, which makes deep sigmoid networks hard to train with gradient methods.", citations: [goodfellow2016]}
+  - {kind: proposition, text: "tanh(x) = 2 sigma(2x) - 1 and tanh'(x) = 1 - tanh(x)^2.", check_ids: [tanh-identity, tanh-derivative]}
+math_checks:
+  - {id: sigmoid-derivative, kind: derivative, expr: "1/(1 + exp(-x))", var: x, expected: "(1/(1 + exp(-x)))*(1 - 1/(1 + exp(-x)))", symbols: {x: {real: true}}}
+  - {id: sigmoid-derivative-bound, kind: inequality, expr: "exp(-x)/(1 + exp(-x))**2 <= Rational(1, 4)", symbols: {x: {real: true}}}
+  - {id: sigmoid-derivative-positive, kind: inequality, expr: "exp(-x)/(1 + exp(-x))**2 > 0", symbols: {x: {real: true}}}
+  - {id: tanh-identity, kind: identity, lhs: "tanh(x)", rhs: "2/(1 + exp(-2*x)) - 1", symbols: {x: {real: true}}}
+  - {id: tanh-derivative, kind: derivative, expr: "tanh(x)", var: x, expected: "1 - tanh(x)**2"}
+figures:
+  - label: fig-sigmoid
+    renderer: matplotlib
+    code_file: fig-sigmoid.py
+    caption: "The logistic sigmoid $\\sigma$ (solid) and its derivative $\\sigma'$ (dashed); the derivative never exceeds $1/4$."
+    alt_text: "Line plot for x from -6 to 6: an S-shaped solid curve rising from 0 to 1 and passing 0.5 at x = 0, and a bell-shaped dashed curve with maximum 0.25 at x = 0."
+    width: 0.8

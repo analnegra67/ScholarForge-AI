@@ -1,0 +1,290 @@
+[
+  {
+    "id": "baydin2018",
+    "type": "article",
+    "title": "Automatic differentiation in machine learning: a survey",
+    "author": [
+      {
+        "family": "Baydin",
+        "given": "Atilim Gunes"
+      },
+      {
+        "family": "Pearlmutter",
+        "given": "Barak A."
+      },
+      {
+        "family": "Radul",
+        "given": "Alexey Andreyevich"
+      },
+      {
+        "family": "Siskind",
+        "given": "Jeffrey Mark"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2015
+        ]
+      ]
+    },
+    "publisher": "arXiv",
+    "number": "arXiv:1502.05767",
+    "URL": "https://arxiv.org/abs/1502.05767"
+  },
+  {
+    "id": "bottou2018",
+    "type": "article-journal",
+    "title": "Optimization Methods for Large-Scale Machine Learning",
+    "author": [
+      {
+        "family": "Bottou",
+        "given": "Léon"
+      },
+      {
+        "family": "Curtis",
+        "given": "Frank E."
+      },
+      {
+        "family": "Nocedal",
+        "given": "Jorge"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "container-title": "SIAM Review",
+    "volume": "60",
+    "issue": "2",
+    "page": "223-311",
+    "publisher": "Society for Industrial & Applied Mathematics (SIAM)",
+    "DOI": "10.1137/16M1080173"
+  },
+  {
+    "id": "boyd2004",
+    "type": "book",
+    "title": "Convex Optimization",
+    "author": [
+      {
+        "family": "Boyd",
+        "given": "Stephen"
+      },
+      {
+        "family": "Vandenberghe",
+        "given": "Lieven"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2004
+        ]
+      ]
+    },
+    "publisher": "Cambridge University Press",
+    "DOI": "10.1017/CBO9780511804441",
+    "ISBN": "9780521833783"
+  },
+  {
+    "id": "cybenko1989",
+    "type": "article-journal",
+    "title": "Approximation by superpositions of a sigmoidal function",
+    "author": [
+      {
+        "family": "Cybenko",
+        "given": "G."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          1989
+        ]
+      ]
+    },
+    "container-title": "Mathematics of Control, Signals, and Systems",
+    "volume": "2",
+    "issue": "4",
+    "page": "303-314",
+    "publisher": "Springer Science and Business Media LLC",
+    "DOI": "10.1007/BF02551274"
+  },
+  {
+    "id": "goodfellow2016",
+    "type": "book",
+    "title": "Deep Learning",
+    "author": [
+      {
+        "family": "Goodfellow",
+        "given": "Ian"
+      },
+      {
+        "family": "Bengio",
+        "given": "Yoshua"
+      },
+      {
+        "family": "Courville",
+        "given": "Aaron"
+      },
+      {
+        "family": "Bach",
+        "given": "Francis"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "publisher": "MIT Press",
+    "ISBN": "9780262035613",
+    "URL": "http://openlibrary.org/books/OL26455783M/Deep_Learning"
+  },
+  {
+    "id": "griewank2008",
+    "type": "book",
+    "title": "Evaluating Derivatives: Principles and Techniques of Algorithmic Differentiation, Second Edition",
+    "author": [
+      {
+        "family": "Griewank",
+        "given": "Andreas"
+      },
+      {
+        "family": "Walther",
+        "given": "Andrea"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2008
+        ]
+      ]
+    },
+    "publisher": "Society for Industrial and Applied Mathematics",
+    "DOI": "10.1137/1.9780898717761",
+    "ISBN": "9780898716597"
+  },
+  {
+    "id": "hornik1991",
+    "type": "article-journal",
+    "title": "Approximation capabilities of multilayer feedforward networks",
+    "author": [
+      {
+        "family": "Hornik",
+        "given": "Kurt"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          1991
+        ]
+      ]
+    },
+    "container-title": "Neural Networks",
+    "volume": "4",
+    "issue": "2",
+    "page": "251-257",
+    "publisher": "Elsevier BV",
+    "DOI": "10.1016/0893-6080(91)90009-T"
+  },
+  {
+    "id": "lecun2015",
+    "type": "article-journal",
+    "title": "Deep learning",
+    "author": [
+      {
+        "family": "LeCun",
+        "given": "Yann"
+      },
+      {
+        "family": "Bengio",
+        "given": "Yoshua"
+      },
+      {
+        "family": "Hinton",
+        "given": "Geoffrey"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2015
+        ]
+      ]
+    },
+    "container-title": "Nature",
+    "volume": "521",
+    "issue": "7553",
+    "page": "436-444",
+    "publisher": "Springer Science and Business Media LLC",
+    "DOI": "10.1038/nature14539"
+  },
+  {
+    "id": "robbins1951",
+    "type": "article-journal",
+    "title": "A Stochastic Approximation Method",
+    "author": [
+      {
+        "family": "Robbins",
+        "given": "Herbert"
+      },
+      {
+        "family": "Monro",
+        "given": "Sutton"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          1951
+        ]
+      ]
+    },
+    "container-title": "The Annals of Mathematical Statistics",
+    "volume": "22",
+    "issue": "3",
+    "page": "400-407",
+    "publisher": "Institute of Mathematical Statistics",
+    "DOI": "10.1214/aoms/1177729586"
+  },
+  {
+    "id": "rumelhart1986",
+    "type": "article-journal",
+    "title": "Learning representations by back-propagating errors",
+    "author": [
+      {
+        "family": "Rumelhart",
+        "given": "David E."
+      },
+      {
+        "family": "Hinton",
+        "given": "Geoffrey E."
+      },
+      {
+        "family": "Williams",
+        "given": "Ronald J."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          1986
+        ]
+      ]
+    },
+    "container-title": "Nature",
+    "volume": "323",
+    "issue": "6088",
+    "page": "533-536",
+    "publisher": "Springer Science and Business Media LLC",
+    "DOI": "10.1038/323533a0"
+  }
+]

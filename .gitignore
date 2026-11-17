@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ScholarForge runtime artefacts (never commit user books, secrets or caches)
+_build/
+_output/
+*.sqlite-wal
+*.sqlite-shm
+*.db-wal
+*.db-shm
+.scholarforge-dev/
+plugins/**/runtime/wheels/*.whl
+
+# Secrets
+.env
+*.pem
+*.key
+license_server/*.sqlite
+license_server/keys/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

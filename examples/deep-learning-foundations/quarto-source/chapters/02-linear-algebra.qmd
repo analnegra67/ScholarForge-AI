@@ -1,0 +1,39 @@
+# Linear Algebra {#sec-linear-algebra}
+
+## Vectors, matrices and gradients {#sec-linear-algebra-vectors-matrices-and-gradients}
+
+We write vectors as bold lowercase letters and treat them as columns, $\mathbf{x} = (x_1, \dots, x_n)^\top \in \mathbb{R}^n$; matrices are bold uppercase, $\mathbf{A} \in \mathbb{R}^{m \times n}$, with entries $A_{ij}$. The transpose turns rows into columns, and the inner product`\index{inner product}`{=latex} is $\langle \mathbf{x}, \mathbf{y}\rangle = \mathbf{x}^\top \mathbf{y} = \sum_i x_i y_i$.
+
+::: {#prp-transpose-product name="Transpose of a product"}
+For $\mathbf{A} \in \mathbb{R}^{m\times n}$ and $\mathbf{B} \in \mathbb{R}^{n\times p}$ we have $(\mathbf{A}\mathbf{B})^\top = \mathbf{B}^\top \mathbf{A}^\top$.
+:::
+
+::: {.proof}
+The $(i,j)$ entry of $(\mathbf{A}\mathbf{B})^\top$ is the $(j,i)$ entry of $\mathbf{A}\mathbf{B}$, namely $\sum_{k=1}^n A_{jk} B_{ki}$. The $(i,j)$ entry of $\mathbf{B}^\top\mathbf{A}^\top$ is $\sum_{k=1}^n B_{ki} A_{jk}$, which is the same sum.
+:::
+
+::: {#def-gradient name="Gradient"}
+Let $U \subseteq \mathbb{R}^n$ be open and let $f\colon U \to \mathbb{R}$ have all first partial derivatives at $\mathbf{x}$. The *gradient`\index{gradient}`{=latex}* of $f$ at $\mathbf{x}$ is the column vector $\nabla f(\mathbf{x}) = \big(\partial f/\partial x_1, \dots, \partial f/\partial x_n\big)^\top$.
+:::
+
+For a differentiable $f$ the expansion $f(\mathbf{x}+\mathbf{h}) = f(\mathbf{x}) + \nabla f(\mathbf{x})^\top \mathbf{h} + o(\lVert \mathbf{h}\rVert)$ shows that $-\nabla f(\mathbf{x})$ is the direction of steepest local decrease, the fact on which gradient descent in @sec-optimization-gradient-descent-and-convexity rests. More generally, the *Jacobian`\index{Jacobian}`{=latex}* of $F\colon \mathbb{R}^n \to \mathbb{R}^m$ is the $m\times n$ matrix $J_F$ of first partial derivatives, and the multivariate chain rule reads $J_{F\circ G}(\mathbf{x}) = J_F(G(\mathbf{x}))\,J_G(\mathbf{x})$, the matrix form of @thm-chain-rule.
+
+::: {#prp-quadratic-gradient name="Gradient of a quadratic form"}
+For $\mathbf{A}\in\mathbb{R}^{n\times n}$ and the quadratic form`\index{quadratic form}`{=latex} $q(\mathbf{x}) = \mathbf{x}^\top \mathbf{A}\mathbf{x}$ we have $\nabla q(\mathbf{x}) = (\mathbf{A} + \mathbf{A}^\top)\mathbf{x}$; if $\mathbf{A}$ is symmetric, $\nabla q(\mathbf{x}) = 2\mathbf{A}\mathbf{x}$.
+:::
+
+::: {.proof}
+Write $q(\mathbf{x}) = \sum_{i,j} A_{ij} x_i x_j$. Differentiating with respect to $x_k$ gives $\partial q/\partial x_k = \sum_j A_{kj} x_j + \sum_i A_{ik} x_i$, which is the $k$-th entry of $\mathbf{A}\mathbf{x} + \mathbf{A}^\top \mathbf{x}$.
+:::
+
+::: {#exm-least-squares name="Least squares"}
+For a data matrix $\mathbf{X} \in \mathbb{R}^{m\times n}$ and targets $\mathbf{y}\in\mathbb{R}^m$, the loss $L(\mathbf{w}) = \tfrac12 \lVert \mathbf{X}\mathbf{w} - \mathbf{y}\rVert^2$ expands to $\tfrac12\mathbf{w}^\top\mathbf{X}^\top\mathbf{X}\mathbf{w} - \mathbf{y}^\top\mathbf{X}\mathbf{w} + \tfrac12\lVert\mathbf{y}\rVert^2$. Since $\mathbf{X}^\top\mathbf{X}$ is symmetric, @prp-quadratic-gradient gives
+$$
+\nabla L(\mathbf{w}) = \mathbf{X}^\top(\mathbf{X}\mathbf{w} - \mathbf{y}).
+$$ {#eq-least-squares-gradient}
+Setting the gradient to zero yields the normal equations $\mathbf{X}^\top\mathbf{X}\mathbf{w} = \mathbf{X}^\top\mathbf{y}$, which have a unique solution exactly when $\mathbf{X}$ has full column rank.
+:::
+
+::: {#exr-trace-gradient}
+For $f(\mathbf{W}) = \operatorname{tr}(\mathbf{W}^\top \mathbf{A})$ with $\mathbf{W},\mathbf{A}\in\mathbb{R}^{m\times n}$, show that $\partial f/\partial W_{ij} = A_{ij}$, so that the gradient of $f$ with respect to the matrix $\mathbf{W}$ is $\mathbf{A}$ itself.
+:::

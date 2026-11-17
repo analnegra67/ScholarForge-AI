@@ -1,0 +1,71 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "scholarforge"
+version = "0.1.0"
+description = "Local AI-native scientific publishing engine: the host AI (Claude Code / Codex) reasons, ScholarForge orchestrates, verifies and typesets."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Proprietary" }
+authors = [{ name = "ScholarForge" }]
+keywords = ["scientific publishing", "quarto", "latex", "mcp", "textbook", "verification"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: MacOS",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Text Processing :: Markup :: LaTeX",
+]
+# Ranges are deliberately bounded; exact, reproducible pins live in constraints.txt.
+dependencies = [
+  "pydantic>=2.11,<3",
+  "PyYAML>=6.0,<7",
+  "httpx>=0.28,<1",
+  "platformdirs>=4.3,<5",
+  "sympy>=1.13,<2",
+  "numpy>=2.1,<3",
+  "scipy>=1.14,<2",
+  "matplotlib>=3.9,<4",
+  "pikepdf>=9.0,<11",
+  "Pillow>=11.0,<14",
+  "pypdfium2>=4.30,<6",
+  "mcp>=2.3,<3",
+  "keyring>=25.0,<26",
+  "cryptography>=44,<51",
+]
+
+[project.optional-dependencies]
+latex-math = ["lark>=1.2,<2"]
+dev = ["pytest>=8.3", "build>=1.2", "hatchling>=1.25"]
+
+[project.scripts]
+scholarforge = "scholarforge.cli.main:main"
+scholarforge-mcp = "scholarforge.mcp.server:main"
+
+[project.urls]
+Documentation = "https://github.com/scholarforge/scholarforge#readme"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/scholarforge"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/scholarforge", "README.md", "pyproject.toml", "constraints.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+  "network: test talks to live scholarly APIs (opt-in via --run-network)",
+  "quarto: test requires a working Quarto installation",
+  "latex: test requires a working LuaLaTeX installation",
+  "slow: long-running test",
+]
+filterwarnings = [
+  "ignore::DeprecationWarning:pyparsing.*",
+]

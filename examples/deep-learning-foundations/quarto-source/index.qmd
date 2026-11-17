@@ -1,0 +1,15 @@
+# Preface {.unnumbered}
+
+The calculus, linear algebra, optimisation and automatic differentiation needed to define, train and analyse feedforward neural networks, presented with proofs at the level of a first graduate course. Out of scope: architectures beyond feedforward networks, statistical learning theory beyond the universal approximation theorem, and implementation details of specific software frameworks.
+
+This textbook is written for readers at the graduate level.
+
+::: {.callout-note title="How this book was produced"}
+The text was drafted with the assistance of an AI model and assembled, checked and typeset with ScholarForge 0.1.0. Cited works were verified against bibliographic registries, and formulas with attached checks were verified by computer algebra; the appendix *Verification report* lists what was checked, what was not, and what needs expert review. Machine checks reduce but do not eliminate the possibility of errors.
+:::
+
+## Conventions {.unnumbered}
+
+- Vectors are bold lowercase column vectors, matrices bold uppercase; the transpose is written with a superscript top.
+- The gradient of a scalar function is a column vector; the Jacobian of a map has one row per output.
+- log is the natural logarithm; [P] equals 1 if the statement P holds and 0 otherwise.

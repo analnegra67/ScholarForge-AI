@@ -1,0 +1,67 @@
+# Glossary {#sec-glossary}
+
+**automatic differentiation**
+: exact-to-rounding evaluation of derivatives by applying the chain rule to a program's elementary operations (see @sec-automatic-differentiation-forward-and-reverse-mode)
+
+**backpropagation**
+: reverse-mode automatic differentiation of a network loss, organised layer by layer (see @sec-neural-networks-feedforward-networks-and-backpropagation)
+
+**computational graph**
+: the directed graph of intermediate values of a program and the elementary operations that produce them (see @sec-automatic-differentiation-forward-and-reverse-mode)
+
+**condition number**
+: the ratio between the largest and the smallest curvature of a quadratic objective (see @sec-optimization-gradient-descent-and-convexity)
+
+**convex function**
+: f(theta x + (1-theta) y) <= theta f(x) + (1-theta) f(y) for all x, y and theta in [0, 1] (see @sec-optimization-gradient-descent-and-convexity)
+
+**cross-entropy**
+: the loss -log p_y of the probability assigned to the true class y (see @sec-neural-networks-feedforward-networks-and-backpropagation)
+
+**derivative**
+: the limit of the difference quotient (f(a+h) - f(a))/h as h tends to 0, when it exists (see @sec-calculus-derivatives-and-the-chain-rule)
+
+**differentiable**
+: a function is differentiable at a point if its derivative exists there (see @sec-calculus-derivatives-and-the-chain-rule)
+
+**feedforward network**
+: a composition of affine maps z = W a + b and entrywise activations a = phi(z), layer by layer (see @sec-neural-networks-feedforward-networks-and-backpropagation)
+
+**forward mode**
+: automatic differentiation that propagates tangents alongside the values from the inputs to the outputs (see @sec-automatic-differentiation-forward-and-reverse-mode)
+
+**gradient**
+: the column vector of first partial derivatives of a scalar function (see @sec-linear-algebra-vectors-matrices-and-gradients)
+
+**gradient descent**
+: the iteration x_{k+1} = x_k - eta grad f(x_k) with step size eta > 0 (see @sec-optimization-gradient-descent-and-convexity)
+
+**inner product**
+: for column vectors x and y, the scalar x^T y = sum_i x_i y_i (see @sec-linear-algebra-vectors-matrices-and-gradients)
+
+**Jacobian**
+: the m-by-n matrix of first partial derivatives of a map from R^n to R^m (see @sec-linear-algebra-vectors-matrices-and-gradients)
+
+**L-smooth function**
+: a differentiable function whose gradient is Lipschitz continuous with constant L (see @sec-optimization-gradient-descent-and-convexity)
+
+**logistic sigmoid**
+: the function sigma(x) = 1/(1 + exp(-x)), mapping the real line onto (0, 1) (see @sec-calculus-derivatives-and-the-chain-rule)
+
+**quadratic form**
+: a function q(x) = x^T A x for a square matrix A (see @sec-linear-algebra-vectors-matrices-and-gradients)
+
+**ReLU**
+: the rectified linear unit t -> max(0, t) (see @sec-neural-networks-universal-approximation)
+
+**reverse mode**
+: automatic differentiation that propagates adjoints from the output back to the inputs after a forward evaluation (see @sec-automatic-differentiation-forward-and-reverse-mode)
+
+**sigmoidal function**
+: a function tending to 1 at plus infinity and to 0 at minus infinity (see @sec-neural-networks-universal-approximation)
+
+**softmax**
+: the map z -> (e^{z_k} / sum_j e^{z_j})_k from scores to probabilities (see @sec-neural-networks-feedforward-networks-and-backpropagation)
+
+**universal approximation**
+: the property that one-hidden-layer networks are dense in the continuous functions on a compact set (see @sec-neural-networks-universal-approximation)

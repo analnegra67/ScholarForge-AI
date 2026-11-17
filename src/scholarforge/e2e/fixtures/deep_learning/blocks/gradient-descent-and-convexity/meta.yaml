@@ -1,0 +1,27 @@
+summary: >-
+  Defines convexity and L-smoothness, proves the descent lemma, states the O(1/k) convergence theorem for
+  gradient descent with references, and illustrates the effect of curvature on a quadratic model.
+terms:
+  - {term: convex function, definition: "f(theta x + (1-theta) y) <= theta f(x) + (1-theta) f(y) for all x, y and theta in [0, 1]"}
+  - {term: L-smooth function, definition: "a differentiable function whose gradient is Lipschitz continuous with constant L"}
+  - {term: gradient descent, definition: "the iteration x_{k+1} = x_k - eta grad f(x_k) with step size eta > 0"}
+  - {term: condition number, definition: "the ratio between the largest and the smallest curvature of a quadratic objective"}
+notation:
+  - {symbol: '\eta', meaning: "step size (learning rate) of gradient descent"}
+  - {symbol: 'L', meaning: "Lipschitz constant of the gradient (smoothness constant)"}
+  - {symbol: '\mathbf{x}^\star', meaning: "a minimiser of the objective"}
+claims:
+  - {label: lem-descent, kind: lemma, text: "If f is L-smooth then f(y) <= f(x) + grad f(x)^T (y - x) + (L/2) ||y - x||^2.", check_ids: [descent-quadratic-equality]}
+  - {label: thm-gd-convex, kind: theorem, text: "For convex L-smooth f, gradient descent with step 1/L satisfies f(x_k) - f(x*) <= L ||x_0 - x*||^2 / (2k).", citations: [boyd2004, bottou2018]}
+  - {kind: proposition, text: "On a quadratic with curvature h, gradient descent multiplies the coordinate by (1 - eta h) at each step.", check_ids: [gd-quadratic-step]}
+  - {kind: fact, text: "Training in deep learning replaces the exact gradient by a stochastic estimate computed on a random mini-batch.", citations: [robbins1951, bottou2018]}
+math_checks:
+  - {id: descent-quadratic-equality, kind: identity, scope: instance, description: "equality case of the descent lemma for f(x) = a x^2 / 2 (L = a)", lhs: "a*y**2/2", rhs: "a*x**2/2 + a*x*(y - x) + a*(y - x)**2/2"}
+  - {id: gd-quadratic-step, kind: identity, lhs: "x - eta*diff(h*x**2/2, x)", rhs: "(1 - eta*h)*x"}
+figures:
+  - label: fig-gd-paths
+    renderer: matplotlib
+    code_file: fig-gd-paths.py
+    caption: "Gradient descent on $f(\\mathbf{x}) = \\tfrac12(x_1^2 + 10x_2^2)$ from $(-9, 1.5)$ with $\\eta = 0.1 = 1/L$ (solid) and $\\eta = 0.19$ (dashed), shown over level sets of $f$."
+    alt_text: "Contour plot of elongated ellipses centred at the origin. The solid path drops straight to the long axis after one step and then creeps along it towards the centre; the dashed path zig-zags across the narrow direction while moving towards the centre."
+    width: 0.85

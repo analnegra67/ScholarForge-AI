@@ -1,0 +1,13 @@
+id: biochemistry
+name: Biochemistry
+extends: biology
+description: Molecular mechanisms, enzymology, metabolism, structural biology.
+keywords: [biochemistry, enzyme, enzymes, metabolism, protein folding, structural biology, enzymology,
+  биохими, біохімі, фермент]
+evidence_types: [experiment, structure-determination, kinetics, citation]
+verification:
+  math_symbolic: recommended
+  dimensional_analysis: recommended
+writing_guidance: |
+  Give reaction mechanisms with conditions; check kinetic and thermodynamic formulas (e.g. Michaelis-Menten)
+  with math and dimension checks; cite structures by PDB identifier where applicable.

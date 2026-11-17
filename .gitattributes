@@ -1,0 +1,12 @@
+# Store text with LF line endings; shell scripts must keep LF in every checkout (they run on Linux/macOS
+# and in WSL even when the repository was cloned on Windows).
+* text=auto
+*.sh text eol=lf
+
+# Generated documents and packages are binary.
+*.pdf binary
+*.epub binary
+*.whl binary
+*.woff binary
+*.woff2 binary
+*.png binary

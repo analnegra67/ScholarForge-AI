@@ -1,0 +1,17 @@
+id: biology
+name: Biology
+extends: generic-science
+description: Life sciences with empirical evidence and primary literature.
+keywords: [biology, genetics, molecular biology, cell biology, ecology, evolution, microbiology, neuroscience,
+  биология, біологія, генетик, эволюц, еволюц, экологи, екологі]
+evidence_types: [experiment, observation, meta-analysis, citation]
+verification:
+  math_symbolic: optional
+  claim_support: required
+claims:
+  require_citation_kinds: [empirical, historical, statistical, fact]
+presentation:
+  environments: [definition, example, remark, exercise]
+writing_guidance: |
+  Ground empirical statements in primary studies or authoritative reviews; give organism, method and effect
+  sizes where relevant; mark findings that are debated or not replicated.

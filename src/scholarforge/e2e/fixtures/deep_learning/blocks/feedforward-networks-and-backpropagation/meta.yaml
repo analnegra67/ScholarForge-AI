@@ -1,0 +1,22 @@
+summary: >-
+  Defines feedforward networks, softmax and cross-entropy, proves the softmax cross-entropy gradient,
+  derives the backpropagation recursion and checks it on a two-parameter network.
+terms:
+  - {term: feedforward network, definition: "a composition of affine maps z = W a + b and entrywise activations a = phi(z), layer by layer"}
+  - {term: softmax, definition: "the map z -> (e^{z_k} / sum_j e^{z_j})_k from scores to probabilities"}
+  - {term: cross-entropy, definition: "the loss -log p_y of the probability assigned to the true class y"}
+  - {term: backpropagation, definition: "reverse-mode automatic differentiation of a network loss, organised layer by layer"}
+notation:
+  - {symbol: 'L', meaning: "number of layers of a network", scope: chapter}
+  - {symbol: '\mathbf{W}^{(\ell)}', meaning: "weight matrix of layer ell"}
+  - {symbol: '\boldsymbol{\delta}^{(\ell)}', meaning: "gradient of the loss with respect to the pre-activations of layer ell"}
+  - {symbol: '\odot', meaning: "entrywise (Hadamard) product"}
+claims:
+  - {label: prp-softmax-gradient, kind: proposition, text: "The gradient of the softmax cross-entropy with respect to the scores is p - e_y.", check_ids: [softmax-ce-z1, softmax-ce-z2]}
+  - {kind: proposition, text: "For the two-parameter network the gradients are (w2 s - t) s and (w2 s - t) w2 s (1 - s) x with s = sigma(w1 x).", check_ids: [two-layer-w2, two-layer-w1]}
+  - {kind: historical, text: "Rumelhart, Hinton and Williams (1986) popularised backpropagation and showed that hidden units come to represent important features of the task domain.", citations: [rumelhart1986]}
+math_checks:
+  - {id: softmax-ce-z1, kind: identity, scope: instance, description: "K = 3, true class 1, derivative with respect to z1", lhs: "diff(-log(exp(z1)/(exp(z1) + exp(z2) + exp(z3))), z1)", rhs: "exp(z1)/(exp(z1) + exp(z2) + exp(z3)) - 1"}
+  - {id: softmax-ce-z2, kind: identity, scope: instance, description: "K = 3, true class 1, derivative with respect to z2", lhs: "diff(-log(exp(z1)/(exp(z1) + exp(z2) + exp(z3))), z2)", rhs: "exp(z2)/(exp(z1) + exp(z2) + exp(z3))"}
+  - {id: two-layer-w2, kind: derivative, expr: "(w2*sigmoid(w1*x) - t)**2/2", var: w2, expected: "(w2*sigmoid(w1*x) - t)*sigmoid(w1*x)"}
+  - {id: two-layer-w1, kind: derivative, expr: "(w2*sigmoid(w1*x) - t)**2/2", var: w1, expected: "(w2*sigmoid(w1*x) - t)*w2*sigmoid(w1*x)*(1 - sigmoid(w1*x))*x"}

@@ -1,0 +1,16 @@
+id: philosophy-of-science
+name: Philosophy of science
+extends: generic-science
+keywords: [philosophy of science, epistemology, scientific realism, falsifiability, philosophy of physics,
+  философия науки, філософія науки, эпистемолог, епістемолог]
+evidence_types: [argument, textual-evidence, historical-case, citation]
+verification:
+  math_symbolic: "off"
+  claim_support: required
+claims:
+  require_citation_kinds: [historical, interpretation, empirical]
+presentation:
+  environments: [definition, example, remark, exercise]
+writing_guidance: |
+  Reconstruct arguments faithfully, attribute positions to their authors with citations, and present major
+  objections. Interpretive claims are labelled as interpretations.

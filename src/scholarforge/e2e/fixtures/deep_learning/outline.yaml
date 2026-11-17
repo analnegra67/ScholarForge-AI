@@ -1,0 +1,76 @@
+title: Mathematical Foundations of Deep Learning
+subtitle: A Compact Rigorous Introduction (ScholarForge test edition)
+notation_conventions:
+  - Vectors are bold lowercase column vectors, matrices bold uppercase; the transpose is written with a superscript top.
+  - The gradient of a scalar function is a column vector; the Jacobian of a map has one row per output.
+  - log is the natural logarithm; [P] equals 1 if the statement P holds and 0 otherwise.
+chapters:
+  - title: Calculus
+    summary: Derivatives, the chain rule and the logistic sigmoid as a first activation function.
+    sections:
+      - title: Derivatives and the chain rule
+        summary: Definition of the derivative, the chain rule with proof, the sigmoid derivative.
+        blocks:
+          - title: Derivatives and the chain rule
+            summary: Define differentiability, prove the chain rule, derive the sigmoid derivative and its bound.
+            elements: [definition, theorem, proof, example, exercise, figure]
+            target_words: 300
+            key_terms: [derivative, logistic sigmoid]
+            sources: [goodfellow2016]
+  - title: Linear Algebra
+    summary: Vectors, matrices, gradients and Jacobians in the notation used throughout the book.
+    sections:
+      - title: Vectors, matrices and gradients
+        summary: Transpose rules, gradients of linear and quadratic forms, least squares.
+        blocks:
+          - title: Vectors, matrices and gradients
+            summary: Notation, transpose of a product with proof, gradient and Jacobian, quadratic forms, least squares.
+            elements: [definition, proposition, proof, example, exercise]
+            target_words: 260
+            key_terms: [gradient, Jacobian, quadratic form]
+            sources: []
+  - title: Optimization
+    summary: Convexity, smoothness and gradient descent with its convergence guarantee.
+    sections:
+      - title: Gradient descent and convexity
+        summary: Descent lemma, O(1/k) convergence, the role of curvature, stochastic variants.
+        blocks:
+          - title: Gradient descent and convexity
+            summary: Define convexity and L-smoothness, prove the descent lemma, state the convergence theorem, illustrate curvature.
+            elements: [definition, lemma, proof, theorem, example, exercise, figure]
+            target_words: 340
+            key_terms: [convex function, L-smooth function, gradient descent]
+            sources: [boyd2004, bottou2018, robbins1951]
+  - title: Automatic Differentiation
+    summary: Computational graphs, forward and reverse mode, the cheap gradient principle.
+    sections:
+      - title: Forward and reverse mode
+        summary: Evaluation traces, tangents and adjoints, cost of reverse mode.
+        blocks:
+          - title: Forward and reverse mode
+            summary: Work through a trace in both modes, state the cost of reverse mode, connect to backpropagation.
+            elements: [example, proposition, exercise, figure]
+            target_words: 280
+            key_terms: [computational graph, automatic differentiation, reverse mode]
+            sources: [baydin2018, griewank2008]
+  - title: Neural Networks
+    summary: Feedforward networks, backpropagation and universal approximation.
+    sections:
+      - title: Feedforward networks and backpropagation
+        summary: Network equations, softmax cross-entropy, backpropagation formulas.
+        blocks:
+          - title: Feedforward networks and backpropagation
+            summary: Define feedforward networks, derive the softmax cross-entropy gradient and the backpropagation recursion.
+            elements: [definition, proposition, proof, example, exercise]
+            target_words: 270
+            key_terms: [feedforward network, softmax, cross-entropy, backpropagation]
+            sources: [rumelhart1986]
+      - title: Universal approximation
+        summary: Cybenko's theorem, its scope and its limits.
+        blocks:
+          - title: Universal approximation
+            summary: State the universal approximation theorem, discuss what it does and does not say, ReLU hats.
+            elements: [theorem, example, exercise]
+            target_words: 280
+            key_terms: [universal approximation, ReLU]
+            sources: [cybenko1989, hornik1991, lecun2015]

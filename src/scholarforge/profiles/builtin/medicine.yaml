@@ -1,0 +1,22 @@
+id: medicine
+name: Medicine and clinical science
+extends: biology
+description: Clinical and biomedical content with the strictest evidence and safety rules.
+keywords: [medicine, medical, clinical, pharmacology, pathology, physiology, cardiology, oncology, epidemiology,
+  diagnosis, treatment, медицин, клиническ, клінічн, фармаколог, эпидемиолог, епідеміолог]
+evidence_types: [randomized-controlled-trial, meta-analysis, cohort-study, guideline, case-report, citation]
+verification:
+  claim_support: required
+claims:
+  require_citation_kinds: [empirical, historical, statistical, fact, clinical]
+  speculative_policy: strict
+  high_stakes_kinds: [clinical]
+presentation:
+  conventions:
+    - State the level of evidence and the guideline or source year for every clinical recommendation.
+writing_guidance: |
+  Clinical statements (diagnosis, dosage, treatment, contraindications) are always marked kind 'clinical' and
+  are routed to expert review; never give dosages without an authoritative, current source. State the evidence
+  level and note that guidelines change.
+safety_notes:
+  - Educational content only; not medical advice. Clinical claims require review by a qualified professional.

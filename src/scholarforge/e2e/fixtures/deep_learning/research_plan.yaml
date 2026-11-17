@@ -1,0 +1,49 @@
+field_name: Mathematical foundations of deep learning
+scope: >-
+  The calculus, linear algebra, optimisation and automatic differentiation needed to define, train and
+  analyse feedforward neural networks, presented with proofs at the level of a first graduate course.
+  Out of scope: architectures beyond feedforward networks, statistical learning theory beyond the
+  universal approximation theorem, and implementation details of specific software frameworks.
+subfields: [differential calculus, linear algebra, convex optimisation, automatic differentiation, neural networks]
+concept_map:
+  - {concept: derivative, description: "local linear approximation of a function", depends_on: []}
+  - {concept: chain rule, description: "derivative of a composition", depends_on: [derivative]}
+  - {concept: vectors and matrices, description: "column vectors, matrix products, transpose", depends_on: []}
+  - {concept: gradient and Jacobian, description: "first derivatives of multivariate maps", depends_on: [derivative, vectors and matrices]}
+  - {concept: convexity and smoothness, description: "conditions under which descent methods provably work", depends_on: [gradient and Jacobian]}
+  - {concept: gradient descent, description: "iterative minimisation along the negative gradient", depends_on: [convexity and smoothness]}
+  - {concept: computational graph, description: "a program as a graph of elementary operations", depends_on: [chain rule]}
+  - {concept: reverse-mode automatic differentiation, description: "adjoint propagation through the graph", depends_on: [computational graph, gradient and Jacobian]}
+  - {concept: feedforward network, description: "composition of affine maps and activations", depends_on: [vectors and matrices]}
+  - {concept: backpropagation, description: "reverse-mode AD applied to a network loss", depends_on: [reverse-mode automatic differentiation, feedforward network]}
+  - {concept: universal approximation, description: "density of one-hidden-layer networks in C([0,1]^n)", depends_on: [feedforward network]}
+prerequisites: [single-variable calculus, basic linear algebra (matrices, determinants), elementary probability]
+key_theories:
+  - {name: Chain rule and multivariate differentiation, status: established, notes: classical analysis}
+  - {name: Convergence of gradient descent for convex L-smooth functions, status: established, notes: "O(1/k) rate"}
+  - {name: Backpropagation as reverse-mode automatic differentiation, status: established, notes: ""}
+  - {name: Universal approximation by one-hidden-layer networks, status: established, notes: "Cybenko 1989; Hornik 1991"}
+  - {name: Why overparameterised networks trained by SGD generalise, status: contested, notes: "active research; several competing explanations"}
+open_problems:
+  - Theoretical explanation of generalisation in heavily overparameterised networks.
+  - Global convergence guarantees for training deep non-convex networks in realistic regimes.
+conventions:
+  - {topic: vectors, choice: "bold lowercase column vectors; bold uppercase matrices", rationale: "standard in ML texts"}
+  - {topic: gradient, choice: "the gradient is a column vector; Jacobians have one row per output", rationale: "consistent chain rule J_{F∘G} = J_F J_G"}
+  - {topic: logarithm, choice: "log denotes the natural logarithm", rationale: ""}
+candidate_sources:
+  - {citekey: rumelhart1986, title: "Learning representations by back-propagating errors", authors: ["David E. Rumelhart", "Geoffrey E. Hinton", "Ronald J. Williams"], year: 1986, doi: "10.1038/323533a0", venue: Nature, kind: article, relevance: "backpropagation"}
+  - {citekey: cybenko1989, title: "Approximation by superpositions of a sigmoidal function", authors: ["G. Cybenko"], year: 1989, doi: "10.1007/BF02551274", venue: "Mathematics of Control, Signals, and Systems", kind: article, relevance: "universal approximation"}
+  - {citekey: hornik1991, title: "Approximation capabilities of multilayer feedforward networks", authors: ["Kurt Hornik"], year: 1991, doi: "10.1016/0893-6080(91)90009-T", venue: "Neural Networks", kind: article, relevance: "universal approximation, general activations"}
+  - {citekey: kingma2014, title: "Adam: A Method for Stochastic Optimization", authors: ["Diederik P. Kingma", "Jimmy Ba"], year: 2014, arxiv_id: "1412.6980", kind: preprint, relevance: "adaptive optimisers"}
+  - {citekey: baydin2018, title: "Automatic differentiation in machine learning: a survey", authors: ["Atilim Gunes Baydin", "Barak A. Pearlmutter", "Alexey Andreyevich Radul", "Jeffrey Mark Siskind"], year: 2018, arxiv_id: "1502.05767", venue: "Journal of Machine Learning Research", kind: article, relevance: "automatic differentiation"}
+  - {citekey: robbins1951, title: "A Stochastic Approximation Method", authors: ["Herbert Robbins", "Sutton Monro"], year: 1951, doi: "10.1214/aoms/1177729586", venue: "The Annals of Mathematical Statistics", kind: article, relevance: "stochastic gradient methods"}
+  - {citekey: lecun2015, title: "Deep learning", authors: ["Yann LeCun", "Yoshua Bengio", "Geoffrey Hinton"], year: 2015, doi: "10.1038/nature14539", venue: Nature, kind: article, relevance: "overview"}
+  - {citekey: boyd2004, title: "Convex Optimization", authors: ["Stephen Boyd", "Lieven Vandenberghe"], year: 2004, doi: "10.1017/CBO9780511804441", kind: book, relevance: "convex analysis and gradient methods"}
+  - {citekey: bottou2018, title: "Optimization Methods for Large-Scale Machine Learning", authors: ["Léon Bottou", "Frank E. Curtis", "Jorge Nocedal"], year: 2018, doi: "10.1137/16M1080173", venue: "SIAM Review", kind: article, relevance: "SGD theory"}
+  - {citekey: goodfellow2016, title: "Deep Learning", authors: ["Ian Goodfellow", "Yoshua Bengio", "Aaron Courville"], year: 2016, isbn: "9780262035613", kind: book, relevance: "textbook"}
+  - {citekey: griewank2008, title: "Evaluating Derivatives: Principles and Techniques of Algorithmic Differentiation", authors: ["Andreas Griewank", "Andrea Walther"], year: 2008, doi: "10.1137/1.9780898717761", kind: book, relevance: "AD complexity results"}
+  # deliberately problematic entries: the engine must catch them
+  - {citekey: doe2019, title: "Gradient Flows in Infinite-Width Transformers Are Always Convex", authors: ["John Doe", "Alice Smith"], year: 2019, doi: "10.9999/sf-fabricated.2019.00123", kind: article, relevance: "fabricated reference used to test detection"}
+  - {citekey: silver2016, title: "Mastering the game of Go with deep neural networks and tree search", authors: ["David Silver"], year: 2016, doi: "10.1038/nature14236", venue: Nature, kind: article, relevance: "mismatched DOI used to test detection"}
+notes: Test research plan for the ScholarForge end-to-end scenario.

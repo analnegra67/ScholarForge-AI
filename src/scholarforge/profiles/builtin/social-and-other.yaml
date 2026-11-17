@@ -1,0 +1,14 @@
+id: economics
+name: Economics
+extends: generic-science
+keywords: [economics, econometrics, microeconomics, macroeconomics, game theory, finance theory, экономик,
+  економік, эконометрик]
+evidence_types: [model, proof, econometric-study, data, citation]
+verification:
+  math_symbolic: recommended
+  numeric_checks: recommended
+claims:
+  require_citation_kinds: [empirical, historical, statistical]
+writing_guidance: |
+  Separate formal models (with assumptions) from empirical findings (with data source, period and method).
+  Present contested policy questions with the main competing positions and their evidence.

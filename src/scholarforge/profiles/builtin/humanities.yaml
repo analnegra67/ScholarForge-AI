@@ -1,0 +1,14 @@
+id: humanities
+name: Humanities
+extends: generic-science
+keywords: [history, linguistics, literature, philosophy, law, sociology, political science, история, історія,
+  лингвистик, лінгвістик, литератур, літератур, социолог, соціолог]
+evidence_types: [primary-source, textual-evidence, argument, citation]
+verification:
+  math_symbolic: "off"
+  claim_support: required
+claims:
+  require_citation_kinds: [historical, interpretation, empirical, fact]
+writing_guidance: |
+  Ground claims in primary sources and scholarship, distinguish fact from interpretation, and represent
+  scholarly disagreement fairly.

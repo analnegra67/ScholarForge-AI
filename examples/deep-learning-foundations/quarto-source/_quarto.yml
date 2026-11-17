@@ -1,0 +1,70 @@
+project:
+  type: book
+  output-dir: _output
+book:
+  title: Mathematical Foundations of Deep Learning
+  author:
+  - ScholarForge project
+  date: today
+  chapters:
+  - index.qmd
+  - chapters/01-calculus.qmd
+  - chapters/02-linear-algebra.qmd
+  - chapters/03-optimization.qmd
+  - chapters/04-automatic-differentiation.qmd
+  - chapters/05-neural-networks.qmd
+  subtitle: A Compact Rigorous Introduction (ScholarForge test edition)
+  appendices:
+  - glossary.qmd
+  - notation.qmd
+  - verification.qmd
+  - references.qmd
+lang: en
+number-sections: true
+crossref:
+  chapters: true
+format:
+  html:
+    theme: cosmo
+    css:
+    - styles.css
+    html-math-method: mathjax
+    default-image-extension: svg
+    toc-depth: 2
+    number-sections: true
+  epub:
+    html-math-method: mathml
+    default-image-extension: png
+    toc: true
+    toc-depth: 2
+    number-sections: true
+  pdf:
+    documentclass: scrbook
+    classoption:
+    - twoside
+    - open=any
+    - numbers=noenddot
+    pdf-engine: lualatex
+    default-image-extension: pdf
+    papersize: a4
+    fontsize: 11pt
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    include-in-header:
+    - preamble.tex
+    include-after-body:
+    - after-body.tex
+    keep-tex: true
+    colorlinks: true
+    latex-auto-install: true
+    geometry:
+    - top=25mm
+    - bottom=28mm
+    - inner=27mm
+    - outer=22mm
+    - headsep=8mm
+    - footskip=12mm
+bibliography:
+- references.json
+link-citations: true

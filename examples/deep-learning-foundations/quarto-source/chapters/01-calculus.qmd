@@ -1,0 +1,46 @@
+# Calculus {#sec-calculus}
+
+## Derivatives and the chain rule {#sec-calculus-derivatives-and-the-chain-rule}
+
+Training a neural network means minimising a scalar loss over many parameters, and every practical method for that minimisation needs derivatives. This block fixes the basic notions for functions of one real variable; @sec-linear-algebra-vectors-matrices-and-gradients extends them to several variables.
+
+::: {#def-derivative name="Derivative"}
+Let $I \subseteq \mathbb{R}$ be an open interval and $f\colon I \to \mathbb{R}$. The function $f$ is *differentiable`\index{differentiable}`{=latex}* at $a \in I$ if the limit
+$$
+f'(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h}
+$$ {#eq-derivative}
+exists; the number $f'(a)$ is the *derivative`\index{derivative}`{=latex}* of $f$ at $a$.
+:::
+
+Equivalently, $f(a+h) = f(a) + f'(a)\,h + r(h)$ with $r(h)/h \to 0$ as $h \to 0$: near $a$ the function is approximated by an affine map whose slope is the derivative. This first-order view is the one that generalises to many variables and to automatic differentiation.
+
+::: {#thm-chain-rule name="Chain rule"}
+Let $I, J \subseteq \mathbb{R}$ be open intervals, let $g\colon I \to J$ be differentiable at $a$ and let $f\colon J \to \mathbb{R}$ be differentiable at $g(a)$. Then $f \circ g$ is differentiable at $a$ and
+$$
+(f\circ g)'(a) = f'\big(g(a)\big)\, g'(a).
+$$ {#eq-chain-rule}
+:::
+
+::: {.proof}
+Define $\varphi(y) = \big(f(y) - f(g(a))\big)/\big(y - g(a)\big)$ for $y \neq g(a)$ and $\varphi(g(a)) = f'(g(a))$. Differentiability of $f$ at $g(a)$ means that $\varphi$ is continuous at $g(a)$, and $f(y) - f(g(a)) = \varphi(y)\,\big(y - g(a)\big)$ holds for every $y \in J$. Substituting $y = g(a+h)$ gives
+$$
+\frac{f(g(a+h)) - f(g(a))}{h} = \varphi\big(g(a+h)\big)\,\frac{g(a+h) - g(a)}{h}.
+$$
+As $h \to 0$ we have $g(a+h) \to g(a)$ because $g$ is continuous at $a$, so the first factor tends to $f'(g(a))$ and the second to $g'(a)$.
+:::
+
+The auxiliary function $\varphi$ avoids dividing by $g(a+h) - g(a)$, which can vanish for arbitrarily small $h \neq 0$; this is the gap in the tempting argument that simply cancels $\Delta g$.
+
+::: {#exm-sigmoid-derivative name="Logistic sigmoid"}
+The logistic sigmoid`\index{logistic sigmoid}`{=latex} $\sigma(x) = 1/(1 + e^{-x})$ maps $\mathbb{R}$ onto $(0,1)$ and is a classical activation function. Writing $\sigma = f \circ g$ with $g(x) = 1 + e^{-x}$ and $f(u) = u^{-1}$, the chain rule gives $\sigma'(x) = -g(x)^{-2}\cdot(-e^{-x})$, which simplifies to
+$$
+\sigma'(x) = \sigma(x)\,\big(1 - \sigma(x)\big).
+$$ {#eq-sigmoid-derivative}
+Hence $0 < \sigma'(x) \le \sigma'(0) = 1/4$ for all $x$; see @fig-sigmoid. Since the bound is attained only at the origin, a product of many such factors becomes small, which is one reason why deep networks of sigmoid units are hard to train with gradient methods [@goodfellow2016].
+:::
+
+![The logistic sigmoid $\sigma$ (solid) and its derivative $\sigma'$ (dashed); the derivative never exceeds $1/4$.](../figures/fig-sigmoid){#fig-sigmoid fig-alt="Line plot for x from -6 to 6: an S-shaped solid curve rising from 0 to 1 and passing 0.5 at x = 0, and a bell-shaped dashed curve with maximum 0.25 at x = 0." width="80%"}
+
+::: {#exr-tanh}
+Show that $\tanh(x) = 2\sigma(2x) - 1$ and deduce $\tanh'(x) = 1 - \tanh^2(x)$ from @eq-sigmoid-derivative and @thm-chain-rule.
+:::

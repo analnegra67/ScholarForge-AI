@@ -1,0 +1,12 @@
+changes_summary: >-
+  Added a proof sketch for the convergence theorem (descent lemma + convexity + telescoping sum, labelled
+  eq-gd-telescoping) as requested by the chapter review; attached a check of the key algebraic expansion.
+extra_math_checks:
+  - id: telescoping-expansion
+    kind: identity
+    scope: instance
+    description: "one-dimensional instance of ||x - g/L - s||^2 = ||x - s||^2 - (2/L) g (x - s) + g^2/L^2"
+    lhs: "(x - g/L - s)**2"
+    rhs: "(x - s)**2 - 2*g*(x - s)/L + g**2/L**2"
+extra_claims:
+  - {kind: proposition, text: "With x_{k+1} = x_k - g/L, ||x_{k+1} - s||^2 = ||x_k - s||^2 - (2/L) g^T (x_k - s) + ||g||^2 / L^2.", check_ids: [telescoping-expansion]}
