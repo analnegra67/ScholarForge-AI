@@ -115,6 +115,42 @@ def test_installation_steps_record_child_pid(launcher, tmp_path):
     assert launcher.lock_owners(lock) == [os.getpid()]
 
 
+def _fake_runtime(launcher, monkeypatch, tmp_path, wheel_bytes, marker=None):
+    """A plugin runtime whose venv exists; pip calls are recorded instead of run."""
+    monkeypatch.setenv("SCHOLARFORGE_RUNTIME_DIR", str(tmp_path / "data"))
+    monkeypatch.setenv("SCHOLARFORGE_RUNTIME_VERSION", "0.0.3")
+    wheel = tmp_path / "scholarforge-0.0.3-py3-none-any.whl"
+    wheel.write_bytes(wheel_bytes)
+    monkeypatch.setenv("SCHOLARFORGE_PACKAGE", str(wheel))
+    venv = tmp_path / "data" / "runtime" / "venv-0.0.3"
+    py = launcher.venv_python(venv)
+    py.parent.mkdir(parents=True)
+    py.write_bytes(b"")
+    if marker is not None:
+        (venv / "scholarforge-installed.json").write_text(json.dumps(dict(marker, spec=str(wheel), python=str(py))))
+    calls = []
+    monkeypatch.setattr(launcher, "run_locked", lambda cmd, lock: calls.append(cmd))
+    return venv, wheel, calls
+
+
+def test_rebuilt_wheel_with_same_version_is_reinstalled(launcher, monkeypatch, tmp_path):
+    venv, wheel, calls = _fake_runtime(launcher, monkeypatch, tmp_path, b"new build",
+                                       marker={"fingerprint": "sha-of-an-older-build"})
+    launcher.ensure_runtime()
+    assert any("--force-reinstall" in cmd for cmd in calls)
+    info = json.loads((venv / "scholarforge-installed.json").read_text())
+    assert info["fingerprint"] == launcher.wheel_fingerprint(str(wheel))
+    calls.clear()
+    launcher.ensure_runtime()  # now up to date: nothing to do
+    assert calls == []
+
+
+def test_first_install_does_not_force_reinstall(launcher, monkeypatch, tmp_path):
+    venv, wheel, calls = _fake_runtime(launcher, monkeypatch, tmp_path, b"first build")
+    launcher.ensure_runtime()
+    assert calls and not any("--force-reinstall" in cmd for cmd in calls)
+
+
 def test_old_python_is_refused(launcher, monkeypatch, capsys):
     monkeypatch.setattr(launcher, "MIN_PYTHON", (99, 0))
     assert launcher.main([]) == 1

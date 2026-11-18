@@ -358,6 +358,9 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     from scholarforge.settings import load_settings
+    from scholarforge.util.winenv import complete_windows_env
+
+    complete_windows_env()  # e.g. started by an MCP client or a scheduler with a minimal environment
 
     try:
         level = args.log_level or load_settings().log_level

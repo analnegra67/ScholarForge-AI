@@ -26,4 +26,9 @@
 - Minimum Python raised from 3.11 to 3.12: the pinned NumPy 2.5.5, SciPy 1.18.1 and contourpy 1.4.0 in
   `constraints.txt` require it, so installation on 3.11 could not succeed (package metadata, launcher,
   installers, `doctor`, CI matrix and docs updated).
+- HTML builds started from MCP clients failed with an empty "Theme file compilation failed" (found in a
+  live session): the MCP server and CLI now complete PATHEXT/COMSPEC/WINDIR/TMP missing from a client's
+  minimal environment, and builds avoid folders redirected by packaged (MSIX) host apps, where Dart Sass
+  cannot open files.
+- Plugin launcher reinstalls a rebuilt wheel whose version did not change (sha256 fingerprint in the marker).
 - Example output of the end-to-end test book in `examples/deep-learning-foundations/`.

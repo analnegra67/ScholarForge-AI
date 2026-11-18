@@ -582,13 +582,17 @@ def build_server() -> MCPServer:
 
 def main() -> None:
     from scholarforge.settings import load_settings
+    from scholarforge.util.winenv import complete_windows_env
 
+    added = complete_windows_env()  # MCP clients pass a minimal environment; Quarto needs PATHEXT
     try:
         level = load_settings().log_level
     except ScholarForgeError:
         level = "INFO"
     configure_logging(level, stderr=True)
     log.info("ScholarForge MCP server %s starting (python %s)", __version__, sys.version.split()[0])
+    if added:
+        log.info("completed the minimal client environment with: %s", ", ".join(added))
     build_server().run("stdio")
 
 

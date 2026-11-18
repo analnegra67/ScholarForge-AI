@@ -11,12 +11,12 @@ Last update: 2026-11-17 (session 1). Read this file first when continuing the wo
 | 3 Publishing engine | done | Quarto book generation, HTML/EPUB/PDF, print edition (bleed, boxes, colour conversion, output intent, PDF/X-4 label after preflight), cover + spine, LaTeX/Quarto exports, preflight (PDF/EPUB+epubcheck/HTML); a real test book is built |
 | 4 Agent integration | done | MCP server (27 tools, SDK 2.3), skills, Claude Code plugin + marketplace (`claude plugin validate` passes, CLI 2.1.325), Codex plugin + marketplace (installed and enabled with Codex CLI 0.146; server started from the plugin cache answered MCP calls), launcher (runtime from the bundled wheel on Windows; actionable errors for missing venv support or wheel), installers, recovery, diagnostics |
 | 5 Commercial infrastructure | done (not deployed) | licensing client (Ed25519 tokens, offline grace, device hash), gate (adapters only), license server (Starlette/SQLite), test payment provider, Stripe Billing integration (locally signed webhooks only), packaging (wheel, constraints, plugin bundles), catalog notes |
-| 6 Full QA | done on Windows and Linux (WSL); macOS not run | 135 unit/integration tests (Windows: 135 passed; Linux: 134 passed, 1 skipped) + end-to-end test with real builds (Windows) |
+| 6 Full QA | done on Windows and Linux (WSL); macOS not run | 144 unit/integration tests (Windows: 144 passed; Linux: 134 passed, 1 skipped, before the 9 live-test regression tests were added) + end-to-end test with real builds (Windows) + one live model-driven book |
 | 7 UI/UX | minimal | human-readable terminal output for status/doctor/list/next/build; no GUI (by design: the AI client is the UI) |
 
 ## Test results (Windows 10, Python 3.14.6, this machine)
 
-- `pytest tests/unit tests/integration`: **135 passed** in 209 s on the final code (includes a real MCP stdio subprocess with the classic
+- `pytest tests/unit tests/integration`: **144 passed** in 283 s on the final code (includes a real MCP stdio subprocess with the classic
   initialize handshake, the licensing lifecycle, PDF/X finalisation with a real CMYK profile, sandbox
   escape attempts, external image generation through a mock transport).
 - `pytest tests/e2e` (requirement §14, real Quarto 1.11.9 + LuaLaTeX/TinyTeX + epubcheck 5.4.0):
@@ -40,8 +40,61 @@ Last update: 2026-11-17 (session 1). Read this file first when continuing the wo
   server got 27 tools, `diagnostics` ok (Quarto 1.11.9, LuaLaTeX, Pandoc 3.10, epubcheck, Java 17) and a
   symbolic `check_math` proof. The running Claude Code desktop session then loaded the plugin's 27 tools and
   4 skills, and `diagnostics` called from inside the app returned ok (projects root: the user's
-  `OneDrive\Documents\ScholarForge`, flagged as cloud-synced). No model-driven authoring session has been
-  run with it yet.
+  `OneDrive\Documents\ScholarForge`, flagged as cloud-synced). A live authoring session followed; see below.
+
+## Live authoring test (2026-11-18)
+
+Claude (Opus 5.5) was the host inside the Claude desktop app, through the installed plugin, following the
+`scholarforge` skill and the task instructions. Caveat: this host had also built ScholarForge and knew its
+internals; a model that did not is a stricter test. Book: *Simple Mathematics* (English, school level,
+8 pages), project folder `OneDrive\Documents\ScholarForge\simple-mathematics`.
+
+- Workflow: 29 host tasks in about 22 minutes of authoring (research plan, source review, outline, 7 blocks,
+  8 claim assessments, 3 chapter reviews, 3 revisions, 4 figure reviews, 1 figure fix) plus 2 submissions
+  rejected with clear, actionable feedback.
+- Sources: 5 candidates, 4 verified at once; the textbook given without an ISBN was reported unverifiable,
+  corrected with an ISBN confirmed by web search, then verified.
+- Chapter reviews found real errors and the bounded revisions fixed them: a false general statement,
+  negative fractions used before being defined, and an area proof that silently used the angle sum.
+- Output (built through the plugin server under the app's minimal environment): HTML, EPUB (epubcheck 0
+  errors, 0 warnings), reading PDF (22 pages), print interior (31 pages, 7 × 10 in, bleed, grayscale,
+  FOGRA39) and cover, both passing ScholarForge's PDF/X-4 checks. Verification report: 31 claims verified,
+  6 supported, 2 contested (open conjectures, labelled), 9 unverified (support only asserted by the host).
+
+Bugs found and fixed:
+
+1. HTML builds failed in the app with an empty "Theme file compilation failed". Two causes: (a) MCP clients
+   start servers with a minimal environment without `PATHEXT`, so Quarto cannot start its Sass compiler; the
+   server and CLI now complete PATHEXT/COMSPEC/WINDIR/TMP (`util/winenv.py`). (b) Dart Sass cannot open
+   files in AppData redirected by an MSIX host app (it resolves them to the package's LocalCache and derives
+   a wrong relative path); `build_workdir` now skips redirected folders (`paths.package_redirect`) and builds
+   in `%TEMP%`. The E2E tests had passed because pytest builds in `%TEMP%` from a full shell environment.
+   Regression tests: unit tests plus a Quarto test compiling a fresh theme under the MCP SDK's environment.
+2. The launcher ignored a rebuilt wheel with an unchanged version (pip skips installed versions); the
+   marker now stores the wheel's sha256 and a changed wheel is force-reinstalled (checked on the installed
+   plugin).
+3. From the installation step: a launcher killed by the client's start-up timeout left a lock that blocked
+   restarts for 30 minutes (fixed then).
+
+Found, not fixed yet:
+
+- Task instructions do not list the fields each math-check kind needs (`solve` needs `lhs`/`rhs`,
+  `inequality` takes `expr`); one submission was rejected for this.
+- A revision must re-declare every figure it marks; the revision instructions do not say so (one rejection).
+- Claim-support assessments are requested again after every revision, even for unchanged claim/source pairs.
+- The word count ignores formulas, so formula-heavy blocks get "SHORT" warnings that stay as open issues.
+- The figure-fix instruction says "Rendering failed" also when a review requested the fix.
+- Verification status relies on the host labelling the scope of checks honestly: an algebraic identity
+  attached as a "general" check to a geometric claim made it "verified" until the chapter review caught it.
+  The report should show which checks back each claim, and such pairings should be flagged.
+- The preface is generated from the research plan's internal scope text ("The book is short (about 8
+  pages)...").
+- Cold start: at the app's session start the server needed 36–47 s to come up, and the app's MCP log
+  shows its fixed 30 s connect timeout firing first (warm start: 1.8 s; a reconnect afterwards works).
+  The warm import profile is 1.4 s for 618 modules, almost all from the MCP SDK itself (its client, HTTP
+  transports and types), none of ScholarForge's heavy libraries. Options: a stdlib proxy in the launcher
+  that answers `initialize` at once and forwards to the server when it is ready, or asking users to raise
+  `MCP_TIMEOUT`.
 
 Example output of the test book: `examples/deep-learning-foundations/` (reading PDF, print interior and
 cover, print specs, EPUB, HTML, LaTeX and Quarto sources, reports). Its README states what the example is
@@ -63,17 +116,17 @@ reports were replaced with `<project>` / `<workdir>`.
 - The E2E scenario uses a **scripted host** (authored fixture content) instead of a live model, and
   **recorded real API responses** (live mode: `SCHOLARFORGE_E2E_LIVE=1 pytest tests/e2e --run-network`).
   The live-API path was exercised in this session (that run produced the recordings).
-- Not executed here: a model-driven session inside Claude Code or Codex using the plugin (requires a
-  session with the plugin loaded; the server, skills, manifests and installation were tested separately).
+- One model-driven session ran in the Claude desktop app through the installed plugin (see "Live authoring
+  test"). Not run yet: a live session in Codex, and a session with a model that did not build ScholarForge.
 - Lean 4: adapter + "not installed"/`sorry` paths tested; no Lean toolchain on this machine.
 - Graphviz/Mermaid renderers: implemented, not exercised (tools not installed).
 - Stripe: signature verification and request shapes tested offline; no Stripe test-mode round trip.
 - License server: not deployed; no production signing key; enforcement is `off` in source builds.
 - PDF/X-4: ScholarForge's own checks only — not a certified ISO 15930-7 validation.
 - macOS: not tested (CI workflow `.github/workflows/ci.yml` covers Linux/macOS/Windows once pushed).
-- Books in non-Latin scripts (e.g. Russian): not built yet. The default LaTeX font (Latin Modern) has no
-  Cyrillic glyphs, so until next task 7 is done a Russian PDF needs `build.mainfont` set to an installed
-  font with Cyrillic; HTML and EPUB use the reader's fonts.
+- Books in non-Latin scripts (Cyrillic, Greek, CJK): not built yet. The default LaTeX font (Latin Modern)
+  covers Latin scripts only, so until next task 7 is done such a PDF needs `build.mainfont` set to an
+  installed font that covers the script; HTML and EPUB use the reader's fonts.
 
 ## Linux run (WSL Ubuntu, Python 3.14.4)
 
@@ -91,8 +144,10 @@ reports were replaced with `<project>` / `<workdir>`.
    on PyPI and `.gitignore` excludes `plugins/**/runtime/wheels/*.whl`. Either commit the bundled wheel per
    release (`scripts/build_plugins.py --wheel`) or publish to PyPI. Until then, install from a local
    checkout after building the wheel.
-1. Run a real authoring session in Claude Code with `claude --plugin-dir plugins/claude-code/scholarforge`
-   (and in Codex) on a small book; tune skill wording and context-pack budgets from what the model does.
+1. Fix the live-test findings listed under "Live authoring test" (math-check field requirements and
+   figure re-declaration in the task instructions, reuse of claim assessments, formula-aware word count,
+   check-to-claim mapping in the report, reader-facing preface, faster cold start); then repeat a live
+   session with a model that did not build ScholarForge, and run one in Codex.
 2. Quarto float placement: figures deferred to chapter ends produce half-empty pages; evaluate
    `fig-pos` and KOMA float parameters.
 3. Abstract retrieval for publishers that withhold abstracts (more claims could reach "supported"):
@@ -102,6 +157,6 @@ reports were replaced with `<project>` / `<workdir>`.
    merchant-of-record decision, public website with privacy policy / terms (catalog prerequisite).
 6. Multi-volume builds (one Quarto project per volume) — the tree supports volumes, the assembler renders
    a single book with parts today.
-7. Non-Latin books: default fonts for Cyrillic/Greek/CJK in LuaLaTeX (fontspec), tested on a Russian book.
+7. Non-Latin books: default fonts for Cyrillic/Greek/CJK in LuaLaTeX (fontspec), tested on a book in each script.
 8. Interactive figures for the electronic editions (e.g. Plotly in HTML with a static fallback for
    PDF/EPUB) and the optional Manim renderer — not implemented yet.

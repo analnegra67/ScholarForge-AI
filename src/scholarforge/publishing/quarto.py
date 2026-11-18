@@ -46,10 +46,15 @@ def _short_path(path: Path) -> Path:
 
 
 def build_workdir(project_id: str) -> Path:
-    """A working directory without non-ASCII characters (TeX tools are fragile with them)."""
+    """A working directory without non-ASCII characters (TeX tools are fragile with them) and outside
+    folders that a packaged (MSIX) host app redirects (Dart Sass cannot open files there)."""
     candidates = [paths.cache_dir() / "builds", Path(tempfile.gettempdir()) / "scholarforge-builds"]
     for base in candidates:
         base.mkdir(parents=True, exist_ok=True)
+        real = paths.package_redirect(base)
+        if real is not None:
+            log.info("build folder %s is redirected by the host app to %s; trying another location", base, real)
+            continue
         if _is_ascii(base):
             d = base / project_id
             d.mkdir(parents=True, exist_ok=True)

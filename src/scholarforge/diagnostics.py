@@ -41,15 +41,8 @@ def appdata_virtualization() -> str | None:
     %LOCALAPPDATA% into their own package folder. Detect it so users understand where tools went."""
     if os.name != "nt" or not os.environ.get("LOCALAPPDATA"):
         return None
-    probe = paths.data_dir()
-    try:
-        real = probe.resolve()
-    except OSError:
-        return None
-    text = str(real)
-    if "\\Packages\\" in text and "\\LocalCache\\" in text:
-        return text
-    return None
+    real = paths.package_redirect(paths.data_dir())
+    return str(real) if real is not None else None
 
 
 def run_doctor(deep: bool = False) -> dict[str, Any]:

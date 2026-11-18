@@ -163,17 +163,29 @@ def run_locked(cmd, lock):
         raise subprocess.CalledProcessError(code, cmd)
 
 
+def wheel_fingerprint(spec):
+    """sha256 of a bundled wheel, so that a rebuilt wheel with the same version is installed again."""
+    path = Path(spec)
+    if spec.endswith(".whl") and path.is_file():
+        import hashlib
+
+        return hashlib.sha256(path.read_bytes()).hexdigest()
+    return None
+
+
 def ensure_runtime(force=False):
     version = plugin_version()
     root = runtime_root()
     venv = root / ("venv-" + version)
     marker = venv / "scholarforge-installed.json"
     spec = package_spec(version)
+    fingerprint = wheel_fingerprint(spec)
 
     def ready():
         try:
             info = json.loads(marker.read_text(encoding="utf-8"))
-            return info.get("spec") == spec and Path(info.get("python", "")).exists()
+            return (info.get("spec") == spec and info.get("fingerprint") == fingerprint
+                    and Path(info.get("python", "")).exists())
         except (OSError, ValueError):
             return False
 
@@ -185,6 +197,7 @@ def ensure_runtime(force=False):
     try:
         if not force and ready():  # another launcher finished while we waited
             return venv_python(venv)
+        had_install = marker.exists()
         log("preparing the ScholarForge runtime in " + str(venv) + " (one-time, a few minutes)")
         if not venv_python(venv).exists() and not venv_support():
             raise SystemExit("[scholarforge-launcher] this Python cannot create virtual environments (the "
@@ -199,8 +212,14 @@ def ensure_runtime(force=False):
         if constraints.exists() and not os.environ.get("SCHOLARFORGE_PACKAGE"):
             cmd += ["-c", str(constraints)]
         run_locked(cmd, lock)
-        marker.write_text(json.dumps({"spec": spec, "python": py, "installed_at": time.time(),
-                                      "plugin_version": version}), encoding="utf-8")
+        if force or (had_install and fingerprint):
+            # pip skips a package whose version is already installed; a rebuilt wheel with the same
+            # version (or an explicit --reinstall) must still replace the code
+            run_locked([py, "-m", "pip", "install", "--disable-pip-version-check", "-q",
+                        "--force-reinstall", "--no-deps", spec], lock)
+        marker.write_text(json.dumps({"spec": spec, "fingerprint": fingerprint, "python": py,
+                                      "installed_at": time.time(), "plugin_version": version}),
+                          encoding="utf-8")
         log("runtime ready")
         return venv_python(venv)
     finally:

@@ -90,3 +90,22 @@ def is_cloud_synced(path: Path) -> bool:
     """Best-effort detection of OneDrive/Dropbox/iCloud folders (SQLite + sync clients = risk)."""
     markers = ("onedrive", "dropbox", "icloud", "google drive", "googledrive", "mobile documents")
     return any(m in part.lower() for part in path.resolve().parts for m in markers)
+
+
+def package_redirect(path: Path) -> Path | None:
+    """The real location of ``path`` if a packaged (MSIX) host app silently redirects it, else None.
+
+    Processes started from an MSIX app (e.g. some desktop AI clients) see ``%LOCALAPPDATA%`` and
+    ``%APPDATA%`` redirected into ``...\\Packages\\<app>\\LocalCache\\``. Python handles that transparently,
+    but some tools do not: Dart Sass (used by Quarto for HTML themes) resolves such a path to its real
+    location, derives a wrong relative path and fails with "Cannot open file". ``path`` should exist."""
+    if os.name != "nt":
+        return None
+    try:
+        real = path.resolve()
+    except OSError:
+        return None
+    text = str(real).lower()
+    if "\\packages\\" in text and "\\localcache\\" in text and str(path).lower() != text:
+        return real
+    return None

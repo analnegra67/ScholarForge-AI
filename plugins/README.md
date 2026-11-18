@@ -53,6 +53,10 @@ terminal set `SCHOLARFORGE_RUNTIME_DIR` to the plugin's data folder
 location, which the Claude Code plugin does not use. The installation lock records the launcher and its pip
 process, so a launcher killed by the client never blocks later starts, and two installations never run at once.
 
+Right after the app or computer restarts, the first start can exceed the client's 30-second connect
+timeout while Python loads from a cold disk (a warm start takes about 2 s); reconnect the server (`/mcp`)
+or give Claude Code more time with the `MCP_TIMEOUT` environment variable (milliseconds).
+
 Verified on 2026-11-17 on Windows: installed from the local marketplace (`claude plugin marketplace add
 <checkout>`, `claude plugin install scholarforge@scholarforge`, user scope); a plugin from a local marketplace
 runs directly from the checkout. `claude mcp list` shows `plugin:scholarforge:scholarforge … Connected`; a
